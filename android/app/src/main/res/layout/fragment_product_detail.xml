@@ -51,6 +51,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_header">
 
         <ImageView
+            android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
             android:contentDescription="@string/todo"
@@ -107,7 +108,9 @@
             android:id="@+id/txt_remaining_slot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Số lượng hàng còn lại : 100"
+            android:layout_marginTop="@dimen/dp_1"
+            android:layout_marginBottom="@dimen/dp_1"
+            android:text="Số lượng hàng còn lại : "
             android:textColor="#978B8B"
             android:textSize="@dimen/sp_17"
             app:layout_constraintTop_toTopOf="parent" />

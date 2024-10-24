@@ -31,15 +31,20 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel, Activity
 
     @Override
     protected void setupAction() {
-        setOnClickListener(mBinding.btnLogin, view -> mViewModel.login(mBinding.editUserName.getText().toString(),
-                mBinding.editPassword.getText().toString()));
-        final SharedPrefManager shared = SharedPrefManager.getInstance(this);
-
-        final boolean onboardCompleted = shared.getBoolean(KeyPref.KEY_ONBOARDING_COMPLETED, false);
-        final Class<?> targetActivity = onboardCompleted ? MainActivity.class : OnboardingActivity.class;
-        navigateTo(targetActivity);
-        finishActivity();
-        setOnClickListener(mBinding.txtForgotPassword, view -> navigateTo(ForgotPasswordActivity.class));
+        setOnClickListener(mBinding.btnLogin, view -> {
+            if (isNetworkConnected()) {
+                mViewModel.login(mBinding.editUserName.getText().toString(),
+                        mBinding.editPassword.getText().toString());
+            } else {
+                showToast("Bạn không có kết nối mạng");
+            }
+        });
+//        final SharedPrefManager shared = SharedPrefManager.getInstance(this);
+//        final boolean onboardCompleted = shared.getBoolean(KeyPref.KEY_ONBOARDING_COMPLETED, false);
+//        final Class<?> targetActivity = onboardCompleted ? MainActivity.class : OnboardingActivity.class;
+//        navigateTo(targetActivity);
+//        finishActivity();
+//        setOnClickListener(mBinding.txtForgotPassword, view -> navigateTo(ForgotPasswordActivity.class));
     }
 
     @Override

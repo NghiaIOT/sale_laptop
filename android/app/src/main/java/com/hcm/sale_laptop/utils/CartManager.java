@@ -19,7 +19,13 @@ public class CartManager {
     }
 
     public static void addProduct(ProductModel model) {
-        if (model != null) orderList.add(model);
+        if (model == null) return;
+        final ProductModel product = findById(model.getId());
+        if (product == null) {
+            orderList.add(model);
+            return;
+        }
+        product.setPrice(product.getPrice() + 1);
     }
 
     public static void addProducts(List<ProductModel> list) {
