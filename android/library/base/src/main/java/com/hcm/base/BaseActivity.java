@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.InputType;
@@ -88,12 +90,12 @@ public abstract class BaseActivity<V extends BaseViewModel<?>, B extends ViewBin
     }
 
     public boolean isNetworkConnected() {
-        final ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        final ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         if (cm == null) {
             return false;
         }
         final NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return activeNetwork != null && activeNetwork.isConnected();
     }
 
     public void requestPermissionsSafely(String[] permissions, int requestCode) {

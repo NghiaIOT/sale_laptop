@@ -83,6 +83,7 @@ public class LoginActivityViewModel extends BaseViewModel<LoginRepository> {
             return Patterns.EMAIL_ADDRESS.matcher(username).matches();
         }
         return Patterns.PHONE.matcher(username).matches();
+
     }
 
     // A placeholder password validation check

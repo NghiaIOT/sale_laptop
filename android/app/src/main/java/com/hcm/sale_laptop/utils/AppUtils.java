@@ -1,11 +1,16 @@
 package com.hcm.sale_laptop.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Patterns;
 import android.widget.ImageView;
 
@@ -49,9 +54,9 @@ public class AppUtils {
     }
 
     public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            final NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         }
         return false;
@@ -85,4 +90,22 @@ public class AppUtils {
         return list != null && !list.isEmpty();
     }
 
+    @SuppressLint("DefaultLocale")
+    public static SpannableString customPrice(float price) {
+        // Số tiền
+        final String priceString = String.format("%.0f", price);
+        // Đơn vị tiền tệ
+        final String currency = "VNĐ";
+        // Tạo SpannableString
+        final SpannableString spannableString = new SpannableString(priceString + " " + currency);
+
+        // Đổi màu cho phần "VNĐ"
+        spannableString.setSpan(new ForegroundColorSpan(
+                        Color.parseColor("#FF0808")),
+                priceString.length() + 1,
+                spannableString.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return spannableString;
+    }
 }
