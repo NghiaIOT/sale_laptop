@@ -1,16 +1,12 @@
-<!-- res/drawable/custom_ratingbar.xml -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Sao trống (bạc) -->
     <item
         android:id="@android:id/background"
         android:drawable="@drawable/star_off" />
 
-    <!-- Sao một nửa (có thể tùy chọn, nếu bạn muốn sử dụng bước nhảy nhỏ) -->
     <item
         android:id="@android:id/secondaryProgress"
         android:drawable="@drawable/star_off" />
 
-    <!-- Sao đầy (vàng) -->
     <item
         android:id="@android:id/progress"
         android:drawable="@drawable/star_on" />

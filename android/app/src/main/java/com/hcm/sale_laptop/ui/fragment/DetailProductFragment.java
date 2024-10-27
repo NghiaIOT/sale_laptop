@@ -44,8 +44,7 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
 
     @Override
     protected void setupUI() {
-        final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
-        mainViewModel.setBottomNavVisibility(false);
+        hideOrShowBottomNavi(false);
         mBinding.txtProductName.setText(productModel.getTitle());
         mBinding.btnAddCart.setActivated(true);
         mBinding.txtDescription.setText(productModel.getDescription());
@@ -63,7 +62,10 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
             showToast("Đã thêm sản phẩm " + productModel.getTitle() + " vào giỏ hàng");
         });
 
-        setOnClickListener(mBinding.btnBuyNow, view -> addFragment(new CartFragment(), R.id.fragment_container, true));
+        setOnClickListener(mBinding.btnBuyNow, view -> {
+            CartManager.addProduct(productModel);
+            addFragment(new ShoppingCartFragment(), R.id.fragment_container, true);
+        });
     }
 
     @Override
@@ -79,7 +81,11 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        hideOrShowBottomNavi(true);
+    }
+
+    private void hideOrShowBottomNavi(boolean isShow) {
         final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
-        mainViewModel.setBottomNavVisibility(true);
+        mainViewModel.setBottomNavVisibility(isShow);
     }
 }

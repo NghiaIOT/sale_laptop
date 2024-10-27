@@ -39,9 +39,9 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel, Activity
                 showToast("Bạn không có kết nối mạng");
             }
         });
-//        final SharedPrefManager shared = SharedPrefManager.getInstance(this);
-//        final boolean onboardCompleted = shared.getBoolean(KeyPref.KEY_ONBOARDING_COMPLETED, false);
-//        final Class<?> targetActivity = onboardCompleted ? MainActivity.class : OnboardingActivity.class;
+        final SharedPrefManager shared = SharedPrefManager.getInstance(this);
+        final boolean onboardCompleted = shared.getBoolean(KeyPref.KEY_ONBOARDING_COMPLETED, false);
+        final Class<?> targetActivity = onboardCompleted ? MainActivity.class : OnboardingActivity.class;
 //        navigateTo(targetActivity);
 //        finishActivity();
 //        setOnClickListener(mBinding.txtForgotPassword, view -> navigateTo(ForgotPasswordActivity.class));

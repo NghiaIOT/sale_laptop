@@ -6,6 +6,17 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class ProductModel implements Parcelable {
+    public static final Creator<ProductModel> CREATOR = new Creator<ProductModel>() {
+        @Override
+        public ProductModel createFromParcel(Parcel in) {
+            return new ProductModel(in);
+        }
+
+        @Override
+        public ProductModel[] newArray(int size) {
+            return new ProductModel[size];
+        }
+    };
     private String id;
     private String category_id;
     private String title;
@@ -15,6 +26,7 @@ public class ProductModel implements Parcelable {
     private String description;
     private float price;
     private String created_by;
+    private long orderNumber;
 
     public ProductModel(String id, String category_id, String title, String slug, String picture, String summary, String description, float price, String created_by) {
         this.id = id;
@@ -26,6 +38,26 @@ public class ProductModel implements Parcelable {
         this.description = description;
         this.price = price;
         this.created_by = created_by;
+    }
+
+    protected ProductModel(Parcel in) {
+        id = in.readString();
+        category_id = in.readString();
+        title = in.readString();
+        slug = in.readString();
+        picture = in.readString();
+        summary = in.readString();
+        description = in.readString();
+        price = in.readFloat();
+        created_by = in.readString();
+    }
+
+    public long getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(long orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getId() {
