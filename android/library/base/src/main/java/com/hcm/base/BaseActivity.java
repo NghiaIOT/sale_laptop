@@ -9,8 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.InputType;
@@ -31,11 +29,22 @@ import androidx.viewbinding.ViewBinding;
 
 
 public abstract class BaseActivity<V extends BaseViewModel<?>, B extends ViewBinding> extends AppCompatActivity {
+    protected V mViewModel;
+    protected B mBinding;
     private ProgressDialog mProgressDialog;
 
-    protected V mViewModel;
-
-    protected B mBinding;
+    public static ProgressDialog showLoadingDialog(Context context) {
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.show();
+        if (progressDialog.getWindow() != null) {
+            progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        return progressDialog;
+    }
 
     protected abstract void setupUI();
 
@@ -177,19 +186,6 @@ public abstract class BaseActivity<V extends BaseViewModel<?>, B extends ViewBin
     protected void onDestroy() {
         super.onDestroy();
         // Dọn dẹp tài nguyên nếu cần
-    }
-
-    public static ProgressDialog showLoadingDialog(Context context) {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.show();
-        if (progressDialog.getWindow() != null) {
-            progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-        progressDialog.setContentView(R.layout.progress_dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        return progressDialog;
     }
 
     protected void configEditTextPassword(final EditText editText, final Drawable offIcon, final Drawable onIcon) {

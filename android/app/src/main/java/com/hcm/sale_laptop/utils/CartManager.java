@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class CartManager {
 
-    private static List<ProductModel> orderList = new ArrayList<>();
+    private static final List<ProductModel> orderList = new ArrayList<>();
 
     public static List<ProductModel> getOrderList() {
         return orderList;
@@ -22,10 +22,9 @@ public class CartManager {
         if (model == null) return;
         final ProductModel product = findById(model.getId());
         if (product == null) {
+            model.setOrderNumber(1);
             orderList.add(model);
-            return;
         }
-        product.setPrice(product.getPrice() + 1);
     }
 
     public static void addProducts(List<ProductModel> list) {

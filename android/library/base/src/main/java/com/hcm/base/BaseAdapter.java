@@ -12,9 +12,9 @@ import java.util.List;
 
 public abstract class BaseAdapter<T, VB extends ViewBinding> extends RecyclerView.Adapter<BaseAdapter.BaseViewHolder<VB>> {
 
+    private final OnItemClick<T> listener;
     // Danh sách dữ liệu mà Adapter quản lý
     private List<T> itemList;
-    private final OnItemClick<T> listener;
 
     // Constructor để truyền danh sách dữ liệu
     public BaseAdapter(List<T> itemList, OnItemClick<T> listener) {
@@ -56,16 +56,6 @@ public abstract class BaseAdapter<T, VB extends ViewBinding> extends RecyclerVie
         return itemList != null ? itemList.size() : 0;
     }
 
-    // ViewHolder chung sử dụng ViewBinding
-    public static class BaseViewHolder<VB extends ViewBinding> extends RecyclerView.ViewHolder {
-        public final VB binding;
-
-        public BaseViewHolder(VB binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
-
     // Phương thức để cập nhật danh sách dữ liệu
     @SuppressLint("NotifyDataSetChanged")
     public void setItems(List<T> newItems) {
@@ -78,6 +68,16 @@ public abstract class BaseAdapter<T, VB extends ViewBinding> extends RecyclerVie
     public void addItems(List<T> items) {
         this.itemList.addAll(items);
         notifyDataSetChanged();
+    }
+
+    // ViewHolder chung sử dụng ViewBinding
+    public static class BaseViewHolder<VB extends ViewBinding> extends RecyclerView.ViewHolder {
+        public final VB binding;
+
+        public BaseViewHolder(VB binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
     }
 }
 

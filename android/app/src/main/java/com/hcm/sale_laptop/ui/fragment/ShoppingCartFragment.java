@@ -11,30 +11,33 @@ import androidx.annotation.Nullable;
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.R;
-import com.hcm.sale_laptop.databinding.FragmentCartBinding;
+import com.hcm.sale_laptop.databinding.FragmentShoppingCartBinding;
+import com.hcm.sale_laptop.ui.adapter.CartAdapter;
+import com.hcm.sale_laptop.utils.CartManager;
 
-public class CartFragment extends BaseFragment<BaseViewModel<?>, FragmentCartBinding> {
+public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, FragmentShoppingCartBinding> {
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentCartBinding.inflate(inflater, container, false);
+        mBinding = FragmentShoppingCartBinding.inflate(inflater, container, false);
         setup();
         return mBinding.getRoot();
     }
 
     @Override
     protected void setupUI() {
-        setOnClickListener(mBinding.btnBackArrow, view -> onBack());
-        setOnClickListener(mBinding.btnPay, view -> {
-            addFragment(new PaymentsFragment(), R.id.fragment_container, true);
-        });
+        mBinding.rvProductCart.setAdapter(new CartAdapter(CartManager.getOrderList(), null));
+
     }
 
     @Override
     protected void setupAction() {
-
+        setOnClickListener(mBinding.btnBackArrow, view -> onBack());
+        setOnClickListener(mBinding.btnPay, view -> {
+            addFragment(new PaymentsFragment(), R.id.fragment_container, true);
+        });
     }
 
     @Override

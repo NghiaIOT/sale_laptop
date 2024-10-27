@@ -16,9 +16,9 @@ public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPay
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentPaymentsBinding.inflate(inflater, container,false);
+        mBinding = FragmentPaymentsBinding.inflate(inflater, container, false);
         setup();
-        return  mBinding.getRoot();
+        return mBinding.getRoot();
     }
 
     @Override
