@@ -48,9 +48,9 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
         mBinding.txtProductName.setText(productModel.getTitle());
         mBinding.btnAddCart.setActivated(true);
         mBinding.txtDescription.setText(productModel.getDescription());
-        final SpannableString spannableString = AppUtils.customPrice(productModel.getPrice());
-        mBinding.txtPrice.setText(spannableString);
-        AppUtils.setImageUrl(mBinding.imageView, productModel.getPicture());
+        final SpannableString price = AppUtils.customPrice(productModel.getPrice());
+        mBinding.txtPrice.setText(price);
+        AppUtils.loadImageUrl(mBinding.imageView, productModel.getPicture());
     }
 
     @Override

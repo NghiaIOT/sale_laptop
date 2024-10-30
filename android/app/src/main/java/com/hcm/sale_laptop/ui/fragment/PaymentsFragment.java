@@ -13,6 +13,7 @@ import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.databinding.FragmentPaymentsBinding;
 
 public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPaymentsBinding> {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -6,15 +6,15 @@ public class BrandModel {
     private String slug;
     private String description;
     private String id;
-    private String imageUrl;
+    private String picture;
 
-    public BrandModel(String name, String parent_category, String slug, String description, String id, String imageUrl) {
+    public BrandModel(String name, String parent_category, String slug, String description, String id, String picture) {
         this.name = name;
         this.parent_category = parent_category;
         this.slug = slug;
         this.description = description;
         this.id = id;
-        this.imageUrl = imageUrl;
+        this.picture = picture;
     }
 
     public String getName() {
@@ -57,11 +57,11 @@ public class BrandModel {
         this.id = id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

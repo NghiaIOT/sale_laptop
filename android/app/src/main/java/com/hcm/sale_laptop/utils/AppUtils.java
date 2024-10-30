@@ -41,7 +41,7 @@ public class AppUtils {
         }
     }
 
-    public static void setImageUrl(ImageView imageView, String url) {
+    public static void loadImageUrl(ImageView imageView, String url) {
         if (stringNullOrEmpty(url)) {
             url = "https://laptop88.vn/media/news/724_banner_800x300_4.png";
         }

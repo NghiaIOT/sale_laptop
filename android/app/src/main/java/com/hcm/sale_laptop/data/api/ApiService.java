@@ -2,6 +2,7 @@ package com.hcm.sale_laptop.data.api;
 
 import com.hcm.sale_laptop.data.model.network.request.LoginRequest;
 import com.hcm.sale_laptop.data.model.network.request.SignupRequest;
+import com.hcm.sale_laptop.data.model.network.response.BannerResponse;
 import com.hcm.sale_laptop.data.model.network.response.BrandResponse;
 import com.hcm.sale_laptop.data.model.network.response.LoginResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductResponse;
@@ -25,4 +26,7 @@ public interface ApiService {
 
     @GET(EndPoint.ADMIN_PRODUCT)
     Single<ProductResponse> getDataProducts();
+
+    @GET(EndPoint.ADMIN_BANNER)
+    Single<BannerResponse> getDataBanners();
 }

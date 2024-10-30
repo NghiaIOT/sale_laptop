@@ -14,6 +14,7 @@ import com.hcm.sale_laptop.databinding.FragmentPersonalInformationBinding;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 
 public class PersonalInfoFragment extends BaseFragment<BaseViewModel<?>, FragmentPersonalInformationBinding> {
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

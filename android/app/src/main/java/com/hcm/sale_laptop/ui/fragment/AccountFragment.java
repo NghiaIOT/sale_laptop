@@ -32,12 +32,6 @@ public class AccountFragment extends BaseFragment<BaseViewModel<?>, FragmentAcco
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     protected void setupUI() {
 
     }
@@ -69,7 +63,6 @@ public class AccountFragment extends BaseFragment<BaseViewModel<?>, FragmentAcco
     protected void setupData() {
 
     }
-
 
     @Override
     protected int getLayoutResourceId() {

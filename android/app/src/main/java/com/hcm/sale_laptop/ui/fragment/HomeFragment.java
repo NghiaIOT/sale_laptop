@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.sale_laptop.R;
+import com.hcm.sale_laptop.data.model.other.BannerModel;
 import com.hcm.sale_laptop.data.model.other.BrandModel;
 import com.hcm.sale_laptop.data.model.other.DiscountedProductModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
@@ -23,6 +24,7 @@ import com.hcm.sale_laptop.ui.adapter.ViewPagerBannerAdapter;
 import com.hcm.sale_laptop.ui.viewmodel.HomeFragmentViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.HomeFragmentViewModelFactory;
 import com.hcm.sale_laptop.utils.AppLogger;
+import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.Constants;
 
 import java.util.ArrayList;
@@ -58,39 +60,22 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
     }
 
     private void setupRVPopularProduct() {
-        final List<ProductModel> popularProductModels = new ArrayList<>();
-        final PopularProductAdapter popularProductAdapter = new PopularProductAdapter(popularProductModels, this::onClickPopularProduct);
+        final PopularProductAdapter adapter = new PopularProductAdapter(
+                new ArrayList<>(), this::onClickPopularProduct);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         mBinding.rvPopularProduct.setLayoutManager(gridLayoutManager);
-        mBinding.rvPopularProduct.setAdapter(popularProductAdapter);
+        mBinding.rvPopularProduct.setAdapter(adapter);
     }
 
     private void setupRVDiscountedProduct() {
-        final List<DiscountedProductModel> discountedProductModels = new ArrayList<>();
-        final DiscountedProductAdapter discountedProductAdapter = new DiscountedProductAdapter(discountedProductModels, this::onClickDiscountedProduct);
-        mBinding.rvDiscountedProduct.setAdapter(discountedProductAdapter);
+        final DiscountedProductAdapter adapter = new DiscountedProductAdapter(
+                new ArrayList<>(), this::onClickDiscountedProduct);
+        mBinding.rvDiscountedProduct.setAdapter(adapter);
     }
 
     private void setupRVBrand() {
-        final List<BrandModel> brandModelList = new ArrayList<>();
-        final BrandAdapter brandAdapter = new BrandAdapter(brandModelList, this::onClickBrand);
+        final BrandAdapter brandAdapter = new BrandAdapter(new ArrayList<>(), this::onClickBrand);
         mBinding.rvBrand.setAdapter(brandAdapter);
-    }
-
-    private void onClickPopularProduct(ProductModel object) {
-        final DetailProductFragment fragment = new DetailProductFragment();
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.KEY_PRODUCT_MODEL, object);
-        fragment.setArguments(bundle);
-        addFragment(fragment, R.id.fragment_container, true);
-    }
-
-    private void onClickDiscountedProduct(DiscountedProductModel object) {
-        AppLogger.d("onClickPopularProduct : ", object.getProductName());
-    }
-
-    private void onClickBrand(BrandModel object) {
-        AppLogger.d("onClickPopularProduct : ", object.getName());
     }
 
     @Override
@@ -112,19 +97,51 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
             }
         });
 
+        mViewModel.getBannerModels().observe(this, bannerModels -> {
+            final ViewPagerBannerAdapter adapter = (ViewPagerBannerAdapter) mBinding.vpBanner.getAdapter();
+            if (adapter == null || !AppUtils.checkListHasData(bannerModels)) return;
+
+            final List<String> listImageUrl = new ArrayList<>();
+            for (final BannerModel model : bannerModels) {
+                final String url = model.getPicture();
+                if (!AppUtils.stringNullOrEmpty(url)) {
+                    listImageUrl.add(url);
+                }
+            }
+            if (AppUtils.checkListHasData(listImageUrl)) {
+                adapter.setItems(listImageUrl);
+            }
+        });
+
         mViewModel.getBrandModels().observe(this, brandModels -> {
             final BrandAdapter adapter = (BrandAdapter) mBinding.rvBrand.getAdapter();
-            if (adapter != null) {
+            if (adapter != null && AppUtils.checkListHasData(brandModels)) {
                 adapter.setItems(brandModels);
             }
         });
 
         mViewModel.getProductModels().observe(this, productModels -> {
             final PopularProductAdapter adapter = (PopularProductAdapter) mBinding.rvPopularProduct.getAdapter();
-            if (adapter != null) {
+            if (adapter != null && AppUtils.checkListHasData(productModels)) {
                 adapter.setItems(productModels);
             }
         });
+    }
+
+    private void onClickPopularProduct(ProductModel object) {
+        final DetailProductFragment fragment = new DetailProductFragment();
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_PRODUCT_MODEL, object);
+        fragment.setArguments(bundle);
+        addFragment(fragment, R.id.fragment_container, true);
+    }
+
+    private void onClickDiscountedProduct(DiscountedProductModel object) {
+        AppLogger.d("onClickPopularProduct : ", object.getProductName());
+    }
+
+    private void onClickBrand(BrandModel object) {
+        AppLogger.d("onClickPopularProduct : ", object.getName());
     }
 
     @Override
