@@ -17,7 +17,6 @@ import com.hcm.sale_laptop.utils.CartManager;
 
 public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, FragmentShoppingCartBinding> {
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

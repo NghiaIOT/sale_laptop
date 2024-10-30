@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 
 import com.hcm.sale_laptop.R;
 
-
 public class InfoFragment extends Fragment {
 
     @Override

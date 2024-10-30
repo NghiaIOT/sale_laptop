@@ -25,6 +25,6 @@ public class BrandAdapter extends BaseAdapter<BrandModel, ItemBrandBinding> {
     @Override
     protected void bindData(BrandModel item, ItemBrandBinding binding, int position) {
         binding.txtBrand.setText(item.getName());
-        AppUtils.setImageUrl(binding.imageView, item.getImageUrl());
+        AppUtils.loadImageUrl(binding.imageView, item.getPicture());
     }
 }

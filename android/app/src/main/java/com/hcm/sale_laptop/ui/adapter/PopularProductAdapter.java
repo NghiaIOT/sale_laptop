@@ -28,9 +28,9 @@ public class PopularProductAdapter extends BaseAdapter<ProductModel, ItemPopular
     protected void bindData(ProductModel item, ItemPopularProductBinding binding, int position) {
         binding.txtProductName.setText(item.getTitle());
 
-        final SpannableString spannableString = AppUtils.customPrice(item.getPrice());
+        final SpannableString price = AppUtils.customPrice(item.getPrice());
         // Set text vào TextView
-        binding.txtPrice.setText(spannableString);
-        AppUtils.setImageUrl(binding.imageView, item.getPicture());
+        binding.txtPrice.setText(price);
+        AppUtils.loadImageUrl(binding.imageView, item.getPicture());
     }
 }

@@ -3,6 +3,7 @@ package com.hcm.sale_laptop.data.repository;
 import com.hcm.base.BaseRepository;
 import com.hcm.sale_laptop.data.api.ApiService;
 import com.hcm.sale_laptop.data.api.RetrofitClient;
+import com.hcm.sale_laptop.data.model.network.response.BannerResponse;
 import com.hcm.sale_laptop.data.model.network.response.BrandResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductResponse;
 
@@ -23,4 +24,9 @@ public class HomeRepository extends BaseRepository {
     public Single<ProductResponse> getDataProducts() {
         return applySingle(apiService.getDataProducts());
     }
+
+    public Single<BannerResponse> getDataBanners() {
+        return applySingle(apiService.getDataBanners());
+    }
+
 }

@@ -12,26 +12,18 @@ import java.util.List;
 
 public class ViewPagerBannerAdapter extends BaseAdapter<String, ItemBannerBinding> {
 
-
     public ViewPagerBannerAdapter(List<String> itemList, OnItemClick<String> listener) {
         super(itemList, listener);
     }
 
     @Override
-    public int getItemCount() {
-        return 4;
-    }
-
-    @Override
     protected ItemBannerBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
-        final ItemBannerBinding binding = ItemBannerBinding.inflate(inflater, parent, false);
-        AppUtils.setImageUrl(binding.imageViewBanner, "");
-        return binding;
+        return ItemBannerBinding.inflate(inflater, parent, false);
     }
 
     @Override
     protected void bindData(String item, ItemBannerBinding binding, int position) {
-        AppUtils.setImageUrl(binding.imageViewBanner, "");
+        AppUtils.loadImageUrl(binding.imageViewBanner, item);
     }
 }
 

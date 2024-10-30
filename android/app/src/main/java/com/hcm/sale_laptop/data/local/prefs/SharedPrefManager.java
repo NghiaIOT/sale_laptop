@@ -94,16 +94,16 @@ public class SharedPrefManager {
 
     // Lưu object dưới dạng JSON
     public void saveObject(String key, Object object) {
-        Gson gson = new Gson();
-        String json = gson.toJson(object);
+        final Gson gson = new Gson();
+        final String json = gson.toJson(object);
         editor.putString(key, json);
         editor.apply();
     }
 
     // Lấy object từ JSON
     public <T> T getObject(String key, Class<T> classOfT) {
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString(key, null);
+        final Gson gson = new Gson();
+        final String json = sharedPreferences.getString(key, null);
         return gson.fromJson(json, classOfT);
     }
 }
