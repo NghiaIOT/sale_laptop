@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class ProductModel implements Parcelable {
+public class ProductModel implements Parcelable, Cloneable {
     public static final Creator<ProductModel> CREATOR = new Creator<ProductModel>() {
         @Override
         public ProductModel createFromParcel(Parcel in) {
@@ -27,6 +27,7 @@ public class ProductModel implements Parcelable {
     private float price;
     private String created_by;
     private long orderNumber;
+    private double totalAmount;
 
     public ProductModel(String id, String category_id, String title, String slug, String picture, String summary, String description, float price, String created_by) {
         this.id = id;
@@ -50,6 +51,14 @@ public class ProductModel implements Parcelable {
         description = in.readString();
         price = in.readFloat();
         created_by = in.readString();
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public long getOrderNumber() {
@@ -140,5 +149,15 @@ public class ProductModel implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeValue(this);
+    }
+
+    @NonNull
+    @Override
+    public ProductModel clone() {
+        try {
+            return (ProductModel) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

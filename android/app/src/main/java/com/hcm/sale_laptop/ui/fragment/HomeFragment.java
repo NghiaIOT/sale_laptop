@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -14,8 +15,8 @@ import com.hcm.base.BaseFragment;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.BannerModel;
 import com.hcm.sale_laptop.data.model.other.BrandModel;
-import com.hcm.sale_laptop.data.model.other.DiscountedProductModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
+import com.hcm.sale_laptop.data.model.other.ProductSaleModel;
 import com.hcm.sale_laptop.databinding.FragmentHomeBinding;
 import com.hcm.sale_laptop.ui.adapter.BrandAdapter;
 import com.hcm.sale_laptop.ui.adapter.DiscountedProductAdapter;
@@ -25,6 +26,7 @@ import com.hcm.sale_laptop.ui.viewmodel.HomeFragmentViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.HomeFragmentViewModelFactory;
 import com.hcm.sale_laptop.utils.AppLogger;
 import com.hcm.sale_laptop.utils.AppUtils;
+import com.hcm.sale_laptop.utils.CartManager;
 import com.hcm.sale_laptop.utils.Constants;
 
 import java.util.ArrayList;
@@ -80,7 +82,17 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
 
     @Override
     protected void setupAction() {
+        setOnClickListener(mBinding.txtSeeAll, view -> addFragment(new AllDiscountedProductFragment(), R.id.fragment_container, true));
+        setOnClickListener(mBinding.btnShoppingCart, view -> {
+            final List<ProductModel> list = CartManager.getOrderList();
+            if (AppUtils.checkListHasData(list)) {
+                addFragment(new ShoppingCartFragment(), R.id.fragment_container, true);
+                return;
+            }
+            showDialogWarning();
+        });
 
+        setOnClickListener(mBinding.btnSearch, view -> addFragment(new SearchFragment(), R.id.fragment_container, true));
     }
 
     @Override
@@ -126,22 +138,47 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
                 adapter.setItems(productModels);
             }
         });
+
+        mViewModel.getProductSaleModels().observe(this, productSaleModels -> {
+            final DiscountedProductAdapter adapter = (DiscountedProductAdapter) mBinding.rvDiscountedProduct.getAdapter();
+            if (adapter != null && AppUtils.checkListHasData(productSaleModels)) {
+                adapter.setItems(productSaleModels);
+            }
+        });
     }
 
     private void onClickPopularProduct(ProductModel object) {
+        addDetailProductFragment(object);
+    }
+
+    private void onClickDiscountedProduct(ProductSaleModel object) {
+        addDetailProductFragment(object);
+    }
+
+    private void showDialogWarning() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Lỗi");
+        builder.setMessage("Giỏ hàng của bạn đang trống, hãy thêm ít nhất một sản phẩm vào giỏ hàng.");
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void onClickBrand(BrandModel object) {
+        AppLogger.d("onClickPopularProduct : ", object.getName());
+        final BrandFragment fragment = new BrandFragment();
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_BRAND_MODEL, object);
+        fragment.setArguments(bundle);
+        addFragment(fragment, R.id.fragment_container, true);
+    }
+
+    private void addDetailProductFragment(ProductModel object) {
         final DetailProductFragment fragment = new DetailProductFragment();
         final Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_PRODUCT_MODEL, object);
         fragment.setArguments(bundle);
         addFragment(fragment, R.id.fragment_container, true);
-    }
-
-    private void onClickDiscountedProduct(DiscountedProductModel object) {
-        AppLogger.d("onClickPopularProduct : ", object.getProductName());
-    }
-
-    private void onClickBrand(BrandModel object) {
-        AppLogger.d("onClickPopularProduct : ", object.getName());
     }
 
     @Override

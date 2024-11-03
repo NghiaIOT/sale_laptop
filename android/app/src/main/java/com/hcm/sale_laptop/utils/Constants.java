@@ -7,6 +7,7 @@ public class Constants {
     public static final String ADMIN = "admin";
     public static final String DATA_FORMAT = "dd/mm/yyyy";
     public static final String KEY_PRODUCT_MODEL = "KEY_PRODUCT_MODEL";
+    public static final String KEY_BRAND_MODEL = "KEY_BRAND_MODEL";
     private static UserModel userModel;
     private static String token;
 

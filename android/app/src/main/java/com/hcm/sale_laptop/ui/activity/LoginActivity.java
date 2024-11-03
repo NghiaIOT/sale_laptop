@@ -70,10 +70,10 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel, Activity
                 final boolean onboardCompleted = shared.getBoolean(KeyPref.KEY_ONBOARDING_COMPLETED, false);
                 final Class<?> targetActivity = onboardCompleted ? MainActivity.class : OnboardingActivity.class;
                 navigateTo(targetActivity);
-                finishActivity();
+            } else {
+                navigateTo(AdminActivity.class);
             }
-
-//            finishActivity();
+            finishActivity();
         });
 
     }

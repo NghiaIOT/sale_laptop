@@ -6,6 +6,7 @@ import com.hcm.sale_laptop.data.api.RetrofitClient;
 import com.hcm.sale_laptop.data.model.network.response.BannerResponse;
 import com.hcm.sale_laptop.data.model.network.response.BrandResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductResponse;
+import com.hcm.sale_laptop.data.model.network.response.ProductSaleResponse;
 
 import io.reactivex.rxjava3.core.Single;
 
@@ -29,4 +30,7 @@ public class HomeRepository extends BaseRepository {
         return applySingle(apiService.getDataBanners());
     }
 
+    public Single<ProductSaleResponse> getDataProductSales() {
+        return applySingle(apiService.getDataProductSales());
+    }
 }

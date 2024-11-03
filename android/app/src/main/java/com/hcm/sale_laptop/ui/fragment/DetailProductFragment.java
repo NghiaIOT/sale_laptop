@@ -16,6 +16,7 @@ import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentProductDetailBinding;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
+import com.hcm.sale_laptop.utils.AppLogger;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.CartManager;
 import com.hcm.sale_laptop.utils.Constants;
@@ -54,16 +55,24 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        this.productModel.setOrderNumber(1);
+        this.productModel.setTotalAmount(0);
+    }
+
+    @Override
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
 
         setOnClickListener(mBinding.btnAddCart, view -> {
-            CartManager.addProduct(productModel);
+            CartManager.addProduct(productModel.clone());
             showToast("Đã thêm sản phẩm " + productModel.getTitle() + " vào giỏ hàng");
         });
 
         setOnClickListener(mBinding.btnBuyNow, view -> {
-            CartManager.addProduct(productModel);
+            AppLogger.d("productModel : ", productModel.getOrderNumber() + "- " + productModel.getTotalAmount());
+            CartManager.addProduct(productModel.clone());
             addFragment(new ShoppingCartFragment(), R.id.fragment_container, true);
         });
     }
