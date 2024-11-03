@@ -20,6 +20,7 @@ import com.hcm.sale_laptop.R;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -91,9 +92,13 @@ public class AppUtils {
     }
 
     @SuppressLint("DefaultLocale")
-    public static SpannableString customPrice(float price) {
+    public static SpannableString customPrice(double price) {
+        double roundPrice = (double) (Math.round(price));
+
+        final NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+
         // Số tiền
-        final String priceString = String.format("%.0f", price);
+        final String priceString = formatter.format(roundPrice);
         // Đơn vị tiền tệ
         final String currency = "VNĐ";
         // Tạo SpannableString

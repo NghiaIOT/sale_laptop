@@ -6,6 +6,7 @@ import com.hcm.sale_laptop.data.model.network.response.BannerResponse;
 import com.hcm.sale_laptop.data.model.network.response.BrandResponse;
 import com.hcm.sale_laptop.data.model.network.response.LoginResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductResponse;
+import com.hcm.sale_laptop.data.model.network.response.ProductSaleResponse;
 import com.hcm.sale_laptop.data.model.network.response.SignupResponse;
 
 import io.reactivex.rxjava3.core.Single;
@@ -29,4 +30,7 @@ public interface ApiService {
 
     @GET(EndPoint.ADMIN_BANNER)
     Single<BannerResponse> getDataBanners();
+
+    @GET(EndPoint.ADMIN_PRODUCT_SALE)
+    Single<ProductSaleResponse> getDataProductSales();
 }

@@ -10,12 +10,15 @@ import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.data.model.network.response.BannerResponse;
 import com.hcm.sale_laptop.data.model.network.response.BrandResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductResponse;
+import com.hcm.sale_laptop.data.model.network.response.ProductSaleResponse;
 import com.hcm.sale_laptop.data.model.other.BannerModel;
 import com.hcm.sale_laptop.data.model.other.BannerObject;
 import com.hcm.sale_laptop.data.model.other.BrandModel;
 import com.hcm.sale_laptop.data.model.other.CategoryModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.data.model.other.ProductObject;
+import com.hcm.sale_laptop.data.model.other.ProductSaleModel;
+import com.hcm.sale_laptop.data.model.other.ProductSaleObject;
 import com.hcm.sale_laptop.data.repository.HomeRepository;
 import com.hcm.sale_laptop.utils.AppUtils;
 
@@ -30,6 +33,7 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
     private final MutableLiveData<List<BrandModel>> brandModels = new MutableLiveData<>();
     private final MutableLiveData<List<ProductModel>> productModels = new MutableLiveData<>();
     private final MutableLiveData<List<BannerModel>> bannerModels = new MutableLiveData<>();
+    private final MutableLiveData<List<ProductSaleModel>> productSaleModels = new MutableLiveData<>();
 
     public HomeFragmentViewModel(@NonNull Application application) {
         super(application);
@@ -41,10 +45,15 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
         getDataBanners();
         getDataBrand();
         getDataProducts();
+        getDataProductSaleModels();
     }
 
     public LiveData<List<BrandModel>> getBrandModels() {
         return brandModels;
+    }
+
+    public LiveData<List<ProductSaleModel>> getProductSaleModels() {
+        return productSaleModels;
     }
 
     public LiveData<List<ProductModel>> getProductModels() {
@@ -53,6 +62,17 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
 
     public LiveData<List<BannerModel>> getBannerModels() {
         return bannerModels;
+    }
+
+    private void getDataProductSaleModels() {
+        final Disposable disposable = mRepository.getDataProductSales()
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(dis -> setLoading(true))
+                .doOnError(error -> setLoading(false))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handlerProductSaleResponse, throwable -> setErrorMessage(throwable.getMessage())
+                );
+        addDisposable(disposable);
     }
 
     private void getDataBanners() {
@@ -86,6 +106,21 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
                 .subscribe(this::handlerBrandResponse, throwable -> setErrorMessage(throwable.getMessage())
                 );
         addDisposable(disposable);
+    }
+
+    private void handlerProductSaleResponse(ProductSaleResponse response) {
+        setLoading(false);
+        final ProductSaleObject object = response.getData();
+        if (!response.isSuccess() || object == null) {
+            setErrorMessage("Lỗi load danh sách sản phẩm");
+        }
+
+        final List<ProductSaleModel> productSaleModels = object != null ? object.getProductModels() : null;
+        if (!AppUtils.checkListHasData(productSaleModels)) {
+            setErrorMessage("Lỗi load danh sách sản phẩm");
+            return;
+        }
+        this.productSaleModels.setValue(productSaleModels);
     }
 
     private void handlerProductResponse(ProductResponse response) {

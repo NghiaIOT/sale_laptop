@@ -25,6 +25,11 @@ public class BaseViewModel<R extends BaseRepository> extends AndroidViewModel {
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
     protected R mRepository;
 
+    public BaseViewModel() {
+        super(new Application());
+
+    }
+
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }

@@ -23,7 +23,6 @@ public class PopularProductAdapter extends BaseAdapter<ProductModel, ItemPopular
         return ItemPopularProductBinding.inflate(inflater, parent, false);
     }
 
-
     @Override
     protected void bindData(ProductModel item, ItemPopularProductBinding binding, int position) {
         binding.txtProductName.setText(item.getTitle());

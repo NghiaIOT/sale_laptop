@@ -7,5 +7,6 @@ public final class EndPoint {
     public static final String ADMIN_CATEGORY = "admin/category";
     public static final String ADMIN_PRODUCT = "admin/product";
     public static final String ADMIN_BANNER = "admin/banner";
+    public static final String ADMIN_PRODUCT_SALE = "/admin/product/sale";
 
 }
