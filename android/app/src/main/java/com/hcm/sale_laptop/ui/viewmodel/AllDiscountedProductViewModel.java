@@ -22,7 +22,6 @@ public class AllDiscountedProductViewModel extends BaseViewModel<AllDiscountedPr
 
     public AllDiscountedProductViewModel() {
         super();
-
         mRepository = new AllDiscountedProductRepository();
     }
 

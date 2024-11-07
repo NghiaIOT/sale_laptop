@@ -196,7 +196,6 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_popular_product"
             tools:listitem="@layout/item_popular_product" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -5,4 +5,5 @@ public final class KeyPref {
     public static final String KEY_USER_NAME = "KEY_USER_NAME";
     public static final String KEY_USER_PASSWORD = "KEY_USER_PASSWORD";
     public static final String KEY_REMEMBER_ACCOUNT = "KEY_REMEMBER_ACCOUNT";
+    public static final String KEY_SEARCH_HISTORY = "KEY_SEARCH_HISTORY";
 }

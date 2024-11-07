@@ -1,25 +1,44 @@
 package com.hcm.sale_laptop.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hcm.base.BaseFragment;
-import com.hcm.base.BaseViewModel;
-import com.hcm.sale_laptop.databinding.FragmentChangePasswordBinding;
+import com.hcm.sale_laptop.R;
+import com.hcm.sale_laptop.data.local.prefs.KeyPref;
+import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
+import com.hcm.sale_laptop.data.model.other.ProductModel;
+import com.hcm.sale_laptop.data.model.other.SearchHistoryModel;
+import com.hcm.sale_laptop.databinding.FragmentSearchBinding;
+import com.hcm.sale_laptop.ui.adapter.PopularProductAdapter;
+import com.hcm.sale_laptop.ui.adapter.SearchHistoryAdapter;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
+import com.hcm.sale_laptop.ui.viewmodel.SearchViewModel;
+import com.hcm.sale_laptop.utils.AppUtils;
+import com.hcm.sale_laptop.utils.Constants;
 
-public class SearchFragment extends BaseFragment<BaseViewModel<?>, FragmentChangePasswordBinding> {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearchBinding> {
+    private final Handler handler = new Handler();
+    private Runnable searchRunnable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentChangePasswordBinding.inflate(inflater, container, false);
+        mBinding = FragmentSearchBinding.inflate(inflater, container, false);
         setup();
         return mBinding.getRoot();
     }
@@ -27,7 +46,94 @@ public class SearchFragment extends BaseFragment<BaseViewModel<?>, FragmentChang
     @Override
     protected void setupUI() {
         hideOrShowBottomNavi(false);
+        setupRVSearchHistory();
+        setupRVSuggestProduct();
+        setupEditTextSearch();
+    }
 
+    private void setupEditTextSearch() {
+
+        mBinding.edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (searchRunnable != null) {
+                    handler.removeCallbacks(searchRunnable);
+                }
+
+                searchRunnable = () -> {
+                    // Called every time the text changes
+                    final String query = charSequence.toString().trim();
+
+                    // Perform API request if query is not empty
+                    if (!query.isEmpty()) {
+                        performSearchRequest(query);
+                    }
+                };
+
+                handler.postDelayed(searchRunnable, 500); // Delay of 500 ms
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void performSearchRequest(String query) {
+
+    }
+
+    private void setupRVSuggestProduct() {
+        final PopularProductAdapter adapter = new PopularProductAdapter(
+                new ArrayList<>(), this::onClickSuggestProduct);
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
+        mBinding.rvSuggestProduct.setLayoutManager(gridLayoutManager);
+        mBinding.rvSuggestProduct.setAdapter(adapter);
+    }
+
+    private void setupRVSearchHistory() {
+        final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
+        final SearchHistoryModel model = shared.getObject(KeyPref.KEY_SEARCH_HISTORY, SearchHistoryModel.class);
+        if (model == null || !AppUtils.checkListHasData(model.getStringList())) {
+            mBinding.txtNotYetSearch.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.txtNotYetSearch.setVisibility(View.GONE);
+            final List<String> list = model.getStringList();
+            Collections.reverse(list);
+            mBinding.rvSearchHistory.setAdapter(new SearchHistoryAdapter(list, this::onItemClickSearchHistory));
+        }
+    }
+
+    private void onClickSuggestProduct(ProductModel object) {
+        final DetailProductFragment fragment = new DetailProductFragment();
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_PRODUCT_MODEL, object);
+        fragment.setArguments(bundle);
+        addFragment(fragment, R.id.fragment_container, true);
+    }
+
+    private void onItemClickSearchHistory(String item) {
+        if (searchRunnable != null) {
+            handler.removeCallbacks(searchRunnable);
+        }
+
+        searchRunnable = () -> {
+            // Called every time the text changes
+            final String query = item.trim();
+
+            // Perform API request if query is not empty
+            if (!query.isEmpty()) {
+                performSearchRequest(query);
+            }
+        };
+
+        handler.postDelayed(searchRunnable, 500); // Delay of 500 ms
     }
 
     @Override
@@ -37,7 +143,42 @@ public class SearchFragment extends BaseFragment<BaseViewModel<?>, FragmentChang
 
     @Override
     protected void setupData() {
+        mViewModel = new SearchViewModel();
+        mViewModel.fetch();
+        mViewModel.errorMessage.observe(this, this::showToast);
+        mViewModel.isLoading.observe(this, isLoading -> {
+            if (isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
 
+        mViewModel.getProductModels().observe(this, productModels -> {
+            final PopularProductAdapter adapter = (PopularProductAdapter) mBinding.rvSuggestProduct.getAdapter();
+            if (adapter != null && AppUtils.checkListHasData(productModels)) {
+                adapter.setItems(productModels);
+            }
+        });
+
+    }
+
+    private List<View> getListUI() {
+        return new ArrayList<View>() {{
+            add(mBinding.txtSuggestSearch);
+            add(mBinding.rvSearchHistory);
+            add(mBinding.line);
+        }};
+    }
+
+    private void setHideOrShowUI(boolean isShow) {
+        for (View view : getListUI()) {
+            if (isShow) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
