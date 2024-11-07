@@ -47,5 +47,7 @@
     <string name="currency">VNĐ</string>
     <string name="enter_phone_number">Nhập số điện thoại</string>
     <string name="enter_address">Nhập địa chỉ</string>
+    <string name="purchase_order_management">Quản lý đơn mua</string>
+    <string name="orders_sold">Đơn hàng đã bán</string>
 
 </resources>

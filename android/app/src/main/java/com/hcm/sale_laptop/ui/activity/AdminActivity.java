@@ -10,24 +10,27 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.hcm.base.BaseActivity;
 import com.hcm.sale_laptop.R;
+import com.hcm.sale_laptop.databinding.ActivityMainAdminBinding;
 import com.hcm.sale_laptop.databinding.ActivityMainBinding;
 import com.hcm.sale_laptop.ui.fragment.AccountFragment;
 import com.hcm.sale_laptop.ui.fragment.HomeFragment;
 import com.hcm.sale_laptop.ui.fragment.InfoFragment;
 import com.hcm.sale_laptop.ui.fragment.OrderFragment;
+import com.hcm.sale_laptop.ui.fragment.OrdersSoldFragment;
+import com.hcm.sale_laptop.ui.fragment.PurchaseManagerFragment;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.MainActivityViewModelFactory;
 
-public class AdminActivity extends BaseActivity<MainActivityViewModel, ActivityMainBinding> {
+public class AdminActivity extends BaseActivity<MainActivityViewModel, ActivityMainAdminBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        mBinding = ActivityMainAdminBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
         // Load default fragment
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            loadFragment(new PurchaseManagerFragment());
         }
         setup();
     }
@@ -42,14 +45,11 @@ public class AdminActivity extends BaseActivity<MainActivityViewModel, ActivityM
         mBinding.bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
             final int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                fragment = new HomeFragment();
-            }
-            if (id == R.id.nav_info) {
-                fragment = new InfoFragment();
+            if (id == R.id.nav_manager) {
+                fragment = new PurchaseManagerFragment();
             }
             if (id == R.id.nav_orders) {
-                fragment = new OrderFragment();
+                fragment = new OrdersSoldFragment();
             }
             if (id == R.id.nav_account) {
                 fragment = new AccountFragment();
