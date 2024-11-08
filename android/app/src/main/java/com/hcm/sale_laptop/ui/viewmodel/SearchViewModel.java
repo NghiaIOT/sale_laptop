@@ -13,6 +13,7 @@ import com.hcm.sale_laptop.data.model.other.ProductObject;
 import com.hcm.sale_laptop.data.repository.SearchRepository;
 import com.hcm.sale_laptop.utils.AppUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -67,14 +68,17 @@ public class SearchViewModel extends BaseViewModel<SearchRepository> {
     private void searchProductResponse(ProductResponse response) {
         setLoading(false);
         final ProductObject object = response.getData();
-        if (!response.isSuccess() || object == null) {
+        if (object == null) {
             setErrorMessage("Lỗi khi kết nối với máy chủ");
+            this.searchProducts.setValue(new ArrayList<>());
             this.showUISearch.setValue(true);
+            return;
         }
 
-        final List<ProductModel> productModels = object != null ? object.getProductModels() : null;
-        if (!AppUtils.checkListHasData(productModels)) {
+        final List<ProductModel> productModels = object.getProductModels();
+        if (!AppUtils.checkListHasData(productModels) || !response.isSuccess()) {
             setErrorMessage("Không tìm thấy sản phẩm phù hợp");
+            this.searchProducts.setValue(new ArrayList<>());
             this.showUISearch.setValue(true);
             return;
         }

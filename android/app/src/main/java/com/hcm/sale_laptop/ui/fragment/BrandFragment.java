@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hcm.base.BaseFragment;
-import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.BrandModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentBrandBinding;
 import com.hcm.sale_laptop.ui.adapter.PopularProductAdapter;
+import com.hcm.sale_laptop.ui.viewmodel.BrandViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.CartManager;
@@ -25,7 +25,7 @@ import com.hcm.sale_laptop.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrandFragment extends BaseFragment<BaseViewModel<?>, FragmentBrandBinding> {
+public class BrandFragment extends BaseFragment<BrandViewModel, FragmentBrandBinding> {
 
     private BrandModel brandModel;
 
@@ -81,7 +81,23 @@ public class BrandFragment extends BaseFragment<BaseViewModel<?>, FragmentBrandB
 
     @Override
     protected void setupData() {
+        mViewModel = new BrandViewModel();
+        mViewModel.getProductsByBrand(brandModel.getId());
+        mViewModel.errorMessage.observe(this, this::showToast);
+        mViewModel.isLoading.observe(this, isLoading -> {
+            if (isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
 
+        mViewModel.getProductModels().observe(this, productModels -> {
+            final PopularProductAdapter adapter = (PopularProductAdapter) mBinding.rvProduct.getAdapter();
+            if (adapter != null && AppUtils.checkListHasData(productModels)) {
+                adapter.setItems(productModels);
+            }
+        });
     }
 
     private void showDialogWarning() {
