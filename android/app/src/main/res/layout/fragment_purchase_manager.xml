@@ -31,9 +31,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_15"
+                android:text="Xác nhận đơn"
                 android:textColor="@color/red"
-                android:text="Xác nhận đơn" />
+                android:textSize="@dimen/sp_15" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,9 +51,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_15"
+                android:text="Yêu cầu hủy đơn"
                 android:textColor="@color/black"
-                android:text="Yêu cầu hủy đơn" />
+                android:textSize="@dimen/sp_15" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,9 +71,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_15"
+                android:text="Xem Đánh giá"
                 android:textColor="@color/black"
-                android:text="Xem Đánh giá" />
+                android:textSize="@dimen/sp_15" />
         </LinearLayout>
     </LinearLayout>
 

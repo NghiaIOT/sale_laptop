@@ -1,10 +1,8 @@
 package com.hcm.sale_laptop.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
