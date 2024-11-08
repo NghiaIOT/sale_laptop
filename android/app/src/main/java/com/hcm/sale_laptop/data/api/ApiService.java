@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -33,4 +34,8 @@ public interface ApiService {
 
     @GET(EndPoint.ADMIN_PRODUCT_SALE)
     Single<ProductSaleResponse> getDataProductSales();
+
+    @GET(EndPoint.ADMIN_PRODUCT)
+    Single<ProductResponse> searchProducts(@Query("title") String keyWord);
+
 }

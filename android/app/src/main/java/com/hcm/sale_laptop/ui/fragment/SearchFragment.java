@@ -86,7 +86,7 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
     }
 
     private void performSearchRequest(String query) {
-
+        mViewModel.searchProducts(query);
     }
 
     private void setupRVSuggestProduct() {
@@ -161,6 +161,14 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
             }
         });
 
+        mViewModel.getSearchProducts().observe(this, productModels -> {
+            final PopularProductAdapter adapter = (PopularProductAdapter) mBinding.rvSuggestProduct.getAdapter();
+            if (adapter != null && AppUtils.checkListHasData(productModels)) {
+                adapter.setItems(productModels);
+            }
+        });
+
+        mViewModel.showUISearch().observe(this, this::setHideOrShowUI);
     }
 
     private List<View> getListUI() {

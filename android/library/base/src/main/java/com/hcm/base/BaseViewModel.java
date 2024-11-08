@@ -18,16 +18,17 @@ public class BaseViewModel<R extends BaseRepository> extends AndroidViewModel {
     private final MutableLiveData<String> _errorMessage = new MutableLiveData<>();
     // LiveData cho thông báo Thành công
     private final MutableLiveData<String> _successMessage = new MutableLiveData<>();
+
     public LiveData<Boolean> isLoading = _isLoading;
     public LiveData<String> errorMessage = _errorMessage;
     public LiveData<String> successMessage = _successMessage;
+
     // Quản lý các Disposable từ RxJava
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
     protected R mRepository;
 
     public BaseViewModel() {
         super(new Application());
-
     }
 
     public BaseViewModel(@NonNull Application application) {

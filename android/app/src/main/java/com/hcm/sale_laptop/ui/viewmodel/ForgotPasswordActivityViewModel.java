@@ -11,4 +11,9 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<BaseRepositor
     public ForgotPasswordActivityViewModel(@NonNull Application application) {
         super(application);
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }

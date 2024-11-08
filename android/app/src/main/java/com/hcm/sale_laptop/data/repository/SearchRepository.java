@@ -16,12 +16,11 @@ public class SearchRepository extends BaseRepository {
         apiService = RetrofitClient.getInstance().create(ApiService.class);
     }
 
-    public Single<BrandResponse> getDataBrand() {
-        return applySingle(apiService.getDataBrand());
-    }
-
     public Single<ProductResponse> getDataProducts() {
         return applySingle(apiService.getDataProducts());
     }
 
+    public Single<ProductResponse> searchProducts(String keyWord) {
+        return applySingle(apiService.searchProducts(keyWord));
+    }
 }

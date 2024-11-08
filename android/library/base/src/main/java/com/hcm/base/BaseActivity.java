@@ -58,7 +58,6 @@ public abstract class BaseActivity<V extends BaseViewModel<?>, B extends ViewBin
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-
     }
 
     @Override
@@ -104,7 +103,7 @@ public abstract class BaseActivity<V extends BaseViewModel<?>, B extends ViewBin
             return false;
         }
         final NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnected();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     public void requestPermissionsSafely(String[] permissions, int requestCode) {

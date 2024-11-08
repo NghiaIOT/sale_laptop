@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class BaseAdapter<T, VB extends ViewBinding> extends RecyclerView.Adapter<BaseAdapter.BaseViewHolder<VB>> {
 
     private final OnItemClick<T> listener;
+
     // Danh sách dữ liệu mà Adapter quản lý
     private List<T> itemList;
 
