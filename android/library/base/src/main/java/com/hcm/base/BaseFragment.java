@@ -117,6 +117,10 @@ public abstract class BaseFragment<V extends BaseViewModel<?>, B extends ViewBin
         transaction.commit();
     }
 
+    public void setOnTouchListener(View view, View.OnTouchListener listener) {
+        view.setOnTouchListener(listener);
+    }
+
     public void setOnClickListener(View view, View.OnClickListener listener) {
         view.setOnClickListener(listener);
     }

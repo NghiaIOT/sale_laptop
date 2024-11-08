@@ -1,8 +1,10 @@
 package com.hcm.sale_laptop.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -46,19 +48,21 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
     @Override
     protected void setupUI() {
         hideOrShowBottomNavi(false);
+
         mBinding.txtProductName.setText(productModel.getTitle());
         mBinding.btnAddCart.setActivated(true);
         mBinding.txtDescription.setText(productModel.getDescription());
         final SpannableString price = AppUtils.customPrice(productModel.getPrice());
         mBinding.txtPrice.setText(price);
+
         AppUtils.loadImageUrl(mBinding.imageView, productModel.getPicture());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        this.productModel.setOrderNumber(1);
-        this.productModel.setTotalAmount(0);
+//        this.productModel.setOrderNumber(1);
+//        this.productModel.setTotalAmount(0);
     }
 
     @Override

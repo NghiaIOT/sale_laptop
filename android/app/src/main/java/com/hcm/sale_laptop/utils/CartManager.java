@@ -20,9 +20,11 @@ public class CartManager {
 
     public static void addProduct(ProductModel model) {
         if (model == null) return;
+
         final ProductModel product = findById(model.getId());
         if (product == null) {
             model.setOrderNumber(1);
+            model.setTotalAmount(model.getPrice());
             orderList.add(model);
         }
     }
@@ -40,7 +42,10 @@ public class CartManager {
     }
 
     public static ProductModel findById(String id) {
-        final Optional<ProductModel> result = orderList.stream().filter(model -> model.getId().equalsIgnoreCase(id)).findFirst();
+        final Optional<ProductModel> result = orderList.stream()
+                .filter(model -> model.getId().equalsIgnoreCase(id))
+                .findFirst();
+
         return result.orElse(null);
     }
 }

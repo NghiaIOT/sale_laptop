@@ -41,6 +41,7 @@ public class AccountFragment extends BaseFragment<BaseViewModel<?>, FragmentAcco
         setOnClickListener(mBinding.cvPersonalInfo, view -> {
             addFragment(new PersonalInfoFragment(), R.id.fragment_container, true);
         });
+
         setOnClickListener(mBinding.cvChangePassword, view -> {
             addFragment(new ChangePasswordFragment(), R.id.fragment_container, true);
 

@@ -90,4 +90,9 @@ public class LoginActivityViewModel extends BaseViewModel<LoginRepository> {
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 4;
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }

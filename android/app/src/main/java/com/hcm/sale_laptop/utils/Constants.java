@@ -5,7 +5,8 @@ import com.hcm.sale_laptop.data.model.other.UserModel;
 public class Constants {
     public static final String USER = "user";
     public static final String ADMIN = "admin";
-    public static final String DATA_FORMAT = "dd/mm/yyyy";
+    public static final String DATE_FORMAT_VN = "dd/MM/yyyy";
+    public static final String TIME_FORMAT_VN = "dd/MM/yyyy HH:mm:ss";
     public static final String KEY_PRODUCT_MODEL = "KEY_PRODUCT_MODEL";
     public static final String KEY_BRAND_MODEL = "KEY_BRAND_MODEL";
     private static UserModel userModel;
