@@ -79,7 +79,7 @@
                 android:layout_marginTop="@dimen/dp_8"
                 android:text="Tên người dùng"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_18"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_register" />
@@ -89,23 +89,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginEnd="@dimen/dp_4"
                 android:autofillHints="true"
                 android:background="@drawable/edit_text_border_white"
                 android:hint="Nhập tên"
                 android:inputType="text"
                 android:padding="@dimen/dp_8"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_18" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
                 android:text="Số điện thoại"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_18"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_register" />
@@ -115,23 +115,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginEnd="@dimen/dp_4"
                 android:autofillHints="true"
                 android:background="@drawable/edit_text_border_white"
                 android:hint="Nhập SĐT"
                 android:inputType="phone"
                 android:padding="@dimen/dp_8"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_18" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
                 android:text="Giới tính"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_18"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_register" />
@@ -141,23 +141,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginEnd="@dimen/dp_4"
                 android:autofillHints="true"
                 android:background="@drawable/edit_text_border_white"
                 android:hint="Nhập giới tính"
                 android:inputType="text"
                 android:padding="@dimen/dp_8"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_18" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
                 android:text="Ngày Sinh"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_18"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_register" />
@@ -167,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginEnd="@dimen/dp_4"
                 android:layout_marginBottom="@dimen/dp_12"
                 android:autofillHints="true"
@@ -175,7 +175,7 @@
                 android:hint="Nhập ngày sinh"
                 android:inputType="date"
                 android:padding="@dimen/dp_8"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_18" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

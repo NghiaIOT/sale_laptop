@@ -157,13 +157,18 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
         mViewModel.getProductModels().observe(this, productModels -> {
             final PopularProductAdapter adapter = (PopularProductAdapter) mBinding.rvSuggestProduct.getAdapter();
             if (adapter != null && AppUtils.checkListHasData(productModels)) {
-                adapter.setItems(productModels);
+                if (productModels.size() > 6) {
+                    Collections.reverse(productModels);
+                    adapter.setItems(productModels.subList(0, 6));
+                } else {
+                    adapter.setItems(productModels);
+                }
             }
         });
 
         mViewModel.getSearchProducts().observe(this, productModels -> {
             final PopularProductAdapter adapter = (PopularProductAdapter) mBinding.rvSuggestProduct.getAdapter();
-            if (adapter != null && AppUtils.checkListHasData(productModels)) {
+            if (adapter != null) {
                 adapter.setItems(productModels);
             }
         });
@@ -176,6 +181,7 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
             add(mBinding.txtSuggestSearch);
             add(mBinding.rvSearchHistory);
             add(mBinding.line);
+            add(mBinding.txtNotYetSearch);
         }};
     }
 

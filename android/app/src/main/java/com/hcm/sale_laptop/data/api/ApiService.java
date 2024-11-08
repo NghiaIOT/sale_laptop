@@ -38,4 +38,6 @@ public interface ApiService {
     @GET(EndPoint.ADMIN_PRODUCT)
     Single<ProductResponse> searchProducts(@Query("title") String keyWord);
 
+    @GET(EndPoint.ADMIN_CATEGORY)
+    Single<ProductResponse> getProductsByBrand(@Query("category") String id);
 }
