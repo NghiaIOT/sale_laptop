@@ -12,14 +12,14 @@ import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentConfirmOrderSouldsBinding;
-import com.hcm.sale_laptop.ui.adapter.CancelOderAdapter;
+import com.hcm.sale_laptop.ui.adapter.AdminCancelOderAdapter;
 
 import java.util.ArrayList;
 
 public class CancelOderFragment extends BaseFragment<BaseViewModel<?>, FragmentConfirmOrderSouldsBinding> {
 
 
-    CancelOderAdapter confirmOderAdapter;
+    AdminCancelOderAdapter confirmOderAdapter;
 
 
     @Override
@@ -38,7 +38,7 @@ public class CancelOderFragment extends BaseFragment<BaseViewModel<?>, FragmentC
         arrayList.add(model);
         arrayList.add(model);
 
-        confirmOderAdapter = new CancelOderAdapter(arrayList, this::onClickDiscountedProduct);
+        confirmOderAdapter = new AdminCancelOderAdapter(arrayList, this::onClickDiscountedProduct);
         mBinding.recyclerView.setAdapter(confirmOderAdapter);
         confirmOderAdapter.setItems(arrayList);
     }

@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="Thuận đẹp trai vãi cẹc thiệt á chớ"
+        android:text="Sản phẩm quá tốt, cấu hình ổn, giá cả hợp lý"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/ln1" />
 

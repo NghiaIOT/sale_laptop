@@ -12,15 +12,14 @@ import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentConfirmOrderSouldsBinding;
-import com.hcm.sale_laptop.ui.adapter.ConfirmOderAdapter;
-import com.hcm.sale_laptop.ui.adapter.RateAdapter;
+import com.hcm.sale_laptop.ui.adapter.AdminRateAdapter;
 
 import java.util.ArrayList;
 
 public class RateFragment extends BaseFragment<BaseViewModel<?>, FragmentConfirmOrderSouldsBinding> {
 
 
-    RateAdapter adapter;
+    AdminRateAdapter adapter;
 
 
     @Override
@@ -40,7 +39,7 @@ public class RateFragment extends BaseFragment<BaseViewModel<?>, FragmentConfirm
         arrayList.add(model);
         arrayList.add(model);
 
-        adapter = new RateAdapter(arrayList, this::onClickDiscountedProduct);
+        adapter = new AdminRateAdapter(arrayList, this::onClickDiscountedProduct);
         mBinding.recyclerView.setAdapter(adapter);
         adapter.setItems(arrayList);
     }

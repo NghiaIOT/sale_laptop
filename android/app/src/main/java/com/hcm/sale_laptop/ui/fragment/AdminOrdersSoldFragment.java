@@ -1,4 +1,4 @@
-package com.hcm.sale_laptop.ui.fragment.manager;
+package com.hcm.sale_laptop.ui.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,26 +7,37 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
+import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentConfirmOrderSouldsBinding;
+import com.hcm.sale_laptop.databinding.FragmentOrderSouldsBinding;
+import com.hcm.sale_laptop.ui.adapter.AdminCancelOderAdapter;
 import com.hcm.sale_laptop.ui.adapter.AdminConfirmOderAdapter;
+import com.hcm.sale_laptop.ui.adapter.AdminOderSoldAdapter;
+import com.hcm.sale_laptop.ui.adapter.AdminRateAdapter;
 
 import java.util.ArrayList;
 
-public class ConfirmOderFragment extends BaseFragment<BaseViewModel<?>, FragmentConfirmOrderSouldsBinding> {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link AdminOrdersSoldFragment} factory method to
+ * create an instance of this fragment.
+ */
+public class AdminOrdersSoldFragment extends BaseFragment<BaseViewModel<?>, FragmentOrderSouldsBinding> {
 
 
-    AdminConfirmOderAdapter confirmOderAdapter;
+    AdminOderSoldAdapter confirmOderAdapter;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentConfirmOrderSouldsBinding.inflate(inflater, container, false);
+        mBinding = FragmentOrderSouldsBinding.inflate(inflater, container, false);
         setup();
         return mBinding.getRoot();
     }
@@ -38,7 +49,7 @@ public class ConfirmOderFragment extends BaseFragment<BaseViewModel<?>, Fragment
         arrayList.add(model);
         arrayList.add(model);
 
-        confirmOderAdapter = new AdminConfirmOderAdapter(arrayList, this::onClickDiscountedProduct);
+        confirmOderAdapter = new AdminOderSoldAdapter(arrayList, this::onClickDiscountedProduct);
         mBinding.recyclerView.setAdapter(confirmOderAdapter);
         confirmOderAdapter.setItems(arrayList);
     }

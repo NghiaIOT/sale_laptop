@@ -12,7 +12,7 @@ import com.hcm.base.BaseActivity;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.databinding.ActivityMainAdminBinding;
 import com.hcm.sale_laptop.ui.fragment.AccountFragment;
-import com.hcm.sale_laptop.ui.fragment.OrdersSoldFragment;
+import com.hcm.sale_laptop.ui.fragment.AdminOrdersSoldFragment;
 import com.hcm.sale_laptop.ui.fragment.PurchaseManagerFragment;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.MainActivityViewModelFactory;
@@ -45,7 +45,7 @@ public class AdminActivity extends BaseActivity<MainActivityViewModel, ActivityM
                 fragment = new PurchaseManagerFragment();
             }
             if (id == R.id.nav_orders) {
-                fragment = new OrdersSoldFragment();
+                fragment = new AdminOrdersSoldFragment();
             }
             if (id == R.id.nav_account) {
                 fragment = new AccountFragment();

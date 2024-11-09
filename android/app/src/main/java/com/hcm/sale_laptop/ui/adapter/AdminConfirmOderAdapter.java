@@ -11,9 +11,9 @@ import com.hcm.sale_laptop.databinding.ItemConfirmOrderBinding;
 import java.util.List;
 
 
-public class ConfirmOderAdapter extends BaseAdapter<ProductModel, ItemConfirmOrderBinding> {
+public class AdminConfirmOderAdapter extends BaseAdapter<ProductModel, ItemConfirmOrderBinding> {
 
-    public ConfirmOderAdapter(List<ProductModel> itemList, OnItemClick<ProductModel> listener) {
+    public AdminConfirmOderAdapter(List<ProductModel> itemList, OnItemClick<ProductModel> listener) {
         super(itemList, listener);
     }
 
