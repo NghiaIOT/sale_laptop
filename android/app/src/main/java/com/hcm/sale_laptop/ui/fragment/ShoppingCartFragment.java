@@ -19,6 +19,7 @@ import com.hcm.sale_laptop.databinding.FragmentShoppingCartBinding;
 import com.hcm.sale_laptop.ui.adapter.ShoppingCartAdapter;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.CartManager;
+import com.hcm.sale_laptop.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
 public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, FragmentShoppingCartBinding> implements ShoppingCartAdapter.OnValueChanged {
 
     private final List<String> listProductId = new ArrayList<>();
+    private double totalAmount;
 
     @Nullable
     @Override
@@ -37,7 +39,7 @@ public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, Fragmen
 
     @Override
     protected void setupUI() {
-        final ShoppingCartAdapter adapter = new ShoppingCartAdapter(CartManager.getOrderList(), null);
+        final ShoppingCartAdapter adapter = new ShoppingCartAdapter(CartManager.getOrderList(), null, true);
         mBinding.rvProductCart.setAdapter(adapter);
         adapter.setOnValueChanged(this);
         loadTotalAmount();
@@ -60,7 +62,15 @@ public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, Fragmen
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
         setOnClickListener(mBinding.btnPay, view -> {
-            addFragment(new PaymentsFragment(), R.id.fragment_container, true);
+            if (AppUtils.checkListHasData(CartManager.getOrderList())) {
+                final PaymentsFragment fragment = new PaymentsFragment();
+                final Bundle bundle = new Bundle();
+                bundle.putDouble(Constants.KEY_TOTAL_AMOUNT, totalAmount);
+                fragment.setArguments(bundle);
+                addFragment(fragment, R.id.fragment_container, true);
+            } else {
+                showToast("Giỏ hàng đang trống, không thể tiến hành thanh toán");
+            }
         });
         setOnClickListener(mBinding.btnRemoveCart, view -> {
             if (!AppUtils.checkListHasData(listProductId)) {
@@ -108,6 +118,7 @@ public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, Fragmen
 
     @Override
     public void onTotalAmountChanged(double totalAmount) {
+        this.totalAmount = totalAmount;
         final SpannableString price = AppUtils.customPrice(totalAmount);
         mBinding.txtMoney.setText(price);
     }

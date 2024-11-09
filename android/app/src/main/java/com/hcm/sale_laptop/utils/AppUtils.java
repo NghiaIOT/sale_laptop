@@ -80,4 +80,25 @@ public class AppUtils {
 
         return spannableString;
     }
+
+    @SuppressLint("DefaultLocale")
+    public static SpannableString customPriceReduced(double price) {
+        double roundPrice = (double) (Math.round(price));
+        final NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+
+        // Số tiền
+        final String priceString = "-" + formatter.format(roundPrice);
+        // Đơn vị tiền tệ
+        final String currency = "VNĐ";
+        // Tạo SpannableString
+        final SpannableString spannableString = new SpannableString(priceString + " " + currency);
+
+        // Đổi màu cho phần "VNĐ"
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FF0808")),
+                priceString.length() + 1,
+                spannableString.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return spannableString;
+    }
 }

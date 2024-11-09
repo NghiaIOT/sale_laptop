@@ -1,5 +1,6 @@
 package com.hcm.sale_laptop.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,29 +8,129 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.gson.reflect.TypeToken;
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
+import com.hcm.sale_laptop.R;
+import com.hcm.sale_laptop.data.local.prefs.KeyPref;
+import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
+import com.hcm.sale_laptop.data.model.other.AddressModel;
+import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentPaymentsBinding;
+import com.hcm.sale_laptop.ui.adapter.ShoppingCartAdapter;
+import com.hcm.sale_laptop.utils.AppUtils;
+import com.hcm.sale_laptop.utils.CartManager;
+import com.hcm.sale_laptop.utils.Constants;
 
-public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPaymentsBinding> {
+import java.lang.reflect.Type;
+import java.util.List;
+
+public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPaymentsBinding> implements ShippingAddressFragment.OnSelectedAddress {
+
+    private Double totalAmount;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentPaymentsBinding.inflate(inflater, container, false);
+        final Bundle bundle = getArguments();
+        if (bundle == null) return mBinding.getRoot();
+
+        totalAmount = bundle.getDouble(Constants.KEY_TOTAL_AMOUNT);
+
         setup();
         return mBinding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void setupUI() {
+        final ShoppingCartAdapter adapter = new ShoppingCartAdapter(CartManager.getOrderList(), null, false);
+        mBinding.rvProductCart.setAdapter(adapter);
 
+        mBinding.txtTotalOrderAmount.setText(AppUtils.customPrice(totalAmount));
+        mBinding.txtTotalShippingCost.setText(AppUtils.customPrice(getShippingCost()));
+        mBinding.txtDiscountAmount.setText(AppUtils.customPriceReduced(getDiscountAmount()));
+
+        double totalPayment = totalAmount + getShippingCost() - getDiscountAmount();
+        mBinding.txtTotalPayment.setText(AppUtils.customPrice(totalPayment));
+        final Type type = new TypeToken<List<AddressModel>>() {
+        }.getType();
+
+        final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
+        List<AddressModel> addressModels = shared.getListObject(KeyPref.KEY_ADDRESS, type);
+        if (AppUtils.checkListHasData(addressModels)) {
+            AddressModel model = addressModels.get(0);
+            for (AddressModel item : addressModels) {
+                if (item.isSelect()) {
+                    model = item;
+                    break;
+                }
+            }
+            String sb = model.getUserName() + " (" +
+                    model.getPhoneNumber() +
+                    ") \n" +
+                    model.getAddress();
+            mBinding.txtAddress.setText(sb);
+        }
+    }
+
+    private double getDiscountAmount() {
+        int number = 0;
+        for (ProductModel model : CartManager.getOrderList()) {
+            number += (int) model.getOrderNumber();
+        }
+        return number * 150000;
+    }
+
+    private double getShippingCost() {
+        int number = 0;
+        for (ProductModel model : CartManager.getOrderList()) {
+            number += (int) model.getOrderNumber();
+        }
+        return number * 10000;
     }
 
     @Override
     protected void setupAction() {
+        setOnClickListener(mBinding.btnBackArrow, view -> onBack());
+        setOnClickListener(mBinding.btnPayment, view -> {
+            final String address = mBinding.txtAddress.getText().toString();
+            if (address.isEmpty()) {
+                showToast("Bạn chưa nhập địa chỉ giao hàng");
+            } else {
+                showDialogWarning();
+            }
+        });
 
+        setOnClickListener(mBinding.btnEditLocation, view -> {
+            final ShippingAddressFragment fragment = new ShippingAddressFragment();
+            fragment.setSelectedAddress(this);
+            addFragment(fragment, R.id.fragment_container, true);
+        });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void showDialogWarning() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Xác nhận");
+        builder.setMessage("Bạn có chắc chắn muốn giao hàng đến người nhận: " + mBinding.txtAddress.getText().toString());
+
+        builder.setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("Đồng ý", (dialog, which) -> {
+
+            showToast("Bạn đã đặt đơn hàng thành công");
+            CartManager.clearOrderList();
+            dialog.dismiss();
+            final FragmentManager fragmentManager = getParentFragmentManager();
+            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        });
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -39,6 +140,15 @@ public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPay
 
     @Override
     protected int getLayoutResourceId() {
-        return 0;
+        return mBinding.getRoot().getId();
+    }
+
+    @Override
+    public void onSelectedAddress(AddressModel model) {
+        String sb = model.getUserName() + " (" +
+                model.getPhoneNumber() +
+                ") \n" +
+                model.getAddress();
+        mBinding.txtAddress.setText(sb);
     }
 }

@@ -8,34 +8,72 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.gson.reflect.TypeToken;
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
-import com.hcm.sale_laptop.R;
-import com.hcm.sale_laptop.databinding.FragmentShoppingCartBinding;
-import com.hcm.sale_laptop.ui.adapter.ShoppingCartAdapter;
-import com.hcm.sale_laptop.utils.CartManager;
+import com.hcm.sale_laptop.data.local.prefs.KeyPref;
+import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
+import com.hcm.sale_laptop.data.model.other.AddressModel;
+import com.hcm.sale_laptop.databinding.FragmentAddNewAddressBinding;
+import com.hcm.sale_laptop.utils.AppUtils;
 
-public class AddNewAddressFragment extends BaseFragment<BaseViewModel<?>, FragmentShoppingCartBinding> {
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AddNewAddressFragment extends BaseFragment<BaseViewModel<?>, FragmentAddNewAddressBinding> {
+
+    private OnNewAddressAdded onNewAddressAdded;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentShoppingCartBinding.inflate(inflater, container, false);
+        mBinding = FragmentAddNewAddressBinding.inflate(inflater, container, false);
         setup();
         return mBinding.getRoot();
     }
 
     @Override
     protected void setupUI() {
-        mBinding.rvProductCart.setAdapter(new ShoppingCartAdapter(CartManager.getOrderList(), null));
 
     }
 
     @Override
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
-        setOnClickListener(mBinding.btnPay, view -> {
-            addFragment(new PaymentsFragment(), R.id.fragment_container, true);
+        setOnClickListener(mBinding.btnAddNewAddress, view -> {
+            final String name = mBinding.edtName.getText().toString();
+            if (name.isEmpty()) {
+                showToast("Bạn chưa nhập Tên người nhận");
+                return;
+            }
+            final String phoneNumber = mBinding.edtPhoneNumber.getText().toString();
+            if (phoneNumber.isEmpty()) {
+                showToast("Bạn chưa nhập SĐT người nhận");
+                return;
+            }
+            final String address = mBinding.edtAddress.getText().toString();
+            if (address.isEmpty()) {
+                showToast("Bạn chưa nhập Địa chỉ người nhận");
+                return;
+            }
+            final AddressModel model = new AddressModel(name, phoneNumber, address, false);
+            final Type type = new TypeToken<List<AddressModel>>() {
+            }.getType();
+
+            final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
+            List<AddressModel> addressModels = shared.getListObject(KeyPref.KEY_ADDRESS, type);
+            if (!AppUtils.checkListHasData(addressModels)) {
+                addressModels = new ArrayList<>();
+            }
+            addressModels.add(model);
+            shared.removeKey(KeyPref.KEY_ADDRESS);
+            shared.saveListObject(KeyPref.KEY_ADDRESS, addressModels);
+            showToast("Thêm Địa chỉ mới thành công");
+            if (onNewAddressAdded != null) {
+                onNewAddressAdded.onComplete(addressModels);
+                onBack();
+            }
         });
     }
 
@@ -47,5 +85,13 @@ public class AddNewAddressFragment extends BaseFragment<BaseViewModel<?>, Fragme
     @Override
     protected int getLayoutResourceId() {
         return mBinding.getRoot().getId();
+    }
+
+    public void setOnNewAddressAdded(OnNewAddressAdded onNewAddressAdded) {
+        this.onNewAddressAdded = onNewAddressAdded;
+    }
+
+    public interface OnNewAddressAdded {
+        void onComplete(List<AddressModel> list);
     }
 }

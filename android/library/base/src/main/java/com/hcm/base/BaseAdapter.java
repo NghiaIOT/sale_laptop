@@ -29,6 +29,10 @@ public abstract class BaseAdapter<T, VB extends ViewBinding> extends RecyclerVie
     // Phương thức trừu tượng để bind dữ liệu vào ViewHolder
     protected abstract void bindData(T item, VB binding, int position);
 
+    protected OnItemClick<T> getListener() {
+        return listener;
+    }
+
     // Tạo ViewHolder và inflate ViewBinding
     @NonNull
     @Override

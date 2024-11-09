@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 public class SharedPrefManager {
     private static final String PREF_NAME = "app_prefs"; // Tên file SharedPreferences
     private static SharedPrefManager instance;
@@ -105,6 +108,24 @@ public class SharedPrefManager {
         final Gson gson = new Gson();
         final String json = sharedPreferences.getString(key, null);
         return gson.fromJson(json, classOfT);
+    }
+
+    // Lưu danh sách Object
+    public <T> void saveListObject(String key, List<T> list) {
+        final Gson gson = new Gson();
+        final String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+    }
+
+    // Lấy danh sách Object từ SharedPreferences
+    public <T> List<T> getListObject(String key, Type type) {
+        final String json = sharedPreferences.getString(key, null);
+        final Gson gson = new Gson();
+        if (json == null) {
+            return null;
+        }
+        return gson.fromJson(json, type);
     }
 }
 
