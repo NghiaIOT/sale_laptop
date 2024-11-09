@@ -9,6 +9,7 @@ public class Constants {
     public static final String TIME_FORMAT_VN = "dd/MM/yyyy HH:mm:ss";
     public static final String KEY_PRODUCT_MODEL = "KEY_PRODUCT_MODEL";
     public static final String KEY_BRAND_MODEL = "KEY_BRAND_MODEL";
+    public static final String KEY_TOTAL_AMOUNT = "KEY_TOTAL_AMOUNT";
     private static UserModel userModel;
     private static String token;
 

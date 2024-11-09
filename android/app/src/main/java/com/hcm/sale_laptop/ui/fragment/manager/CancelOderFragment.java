@@ -33,8 +33,8 @@ public class CancelOderFragment extends BaseFragment<BaseViewModel<?>, FragmentC
 
     @Override
     protected void setupUI() {
-        ArrayList arrayList =  new ArrayList<>();
-        ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by" );
+        ArrayList arrayList = new ArrayList<>();
+        ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by");
         arrayList.add(model);
         arrayList.add(model);
 

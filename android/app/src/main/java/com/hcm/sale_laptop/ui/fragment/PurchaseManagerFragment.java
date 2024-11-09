@@ -12,11 +12,8 @@ import androidx.fragment.app.Fragment;
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.R;
-import com.hcm.sale_laptop.databinding.FragmentChangePasswordBinding;
 import com.hcm.sale_laptop.databinding.FragmentPurchaseManagerBinding;
 import com.hcm.sale_laptop.ui.adapter.ViewPagerStateAdapter;
-
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +44,7 @@ public class PurchaseManagerFragment extends BaseFragment<BaseViewModel<?>, Frag
     @Override
     protected void setupAction() {
         mBinding.tab1.setOnClickListener(view -> {
-           updateViewPager(0);
+            updateViewPager(0);
         });
         mBinding.tab2.setOnClickListener(view -> {
             updateViewPager(1);
@@ -57,14 +54,20 @@ public class PurchaseManagerFragment extends BaseFragment<BaseViewModel<?>, Frag
         });
     }
 
-    private void updateViewPager(int tab){
+    private void updateViewPager(int tab) {
         mBinding.tvTab1.setTextColor(getResources().getColor(R.color.black));
         mBinding.tvTab2.setTextColor(getResources().getColor(R.color.black));
         mBinding.tvTab3.setTextColor(getResources().getColor(R.color.black));
-        switch (tab){
-            case 0:  mBinding.tvTab1.setTextColor(getResources().getColor(com.hcm.base.R.color.red)); break;
-            case 1: mBinding.tvTab2.setTextColor(getResources().getColor(com.hcm.base.R.color.red)); break;
-            case 2: mBinding.tvTab3.setTextColor(getResources().getColor(com.hcm.base.R.color.red)); break;
+        switch (tab) {
+            case 0:
+                mBinding.tvTab1.setTextColor(getResources().getColor(com.hcm.base.R.color.red));
+                break;
+            case 1:
+                mBinding.tvTab2.setTextColor(getResources().getColor(com.hcm.base.R.color.red));
+                break;
+            case 2:
+                mBinding.tvTab3.setTextColor(getResources().getColor(com.hcm.base.R.color.red));
+                break;
         }
         mBinding.viewPager.setCurrentItem(tab);
     }
@@ -73,7 +76,6 @@ public class PurchaseManagerFragment extends BaseFragment<BaseViewModel<?>, Frag
     protected void setupData() {
 
     }
-
 
 
     @Override

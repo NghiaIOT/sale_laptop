@@ -2,6 +2,7 @@ package com.hcm.sale_laptop.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.hcm.base.BaseAdapter;
@@ -15,11 +16,13 @@ import java.util.List;
 public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBinding> {
 
     private final List<ProductModel> productModels;
+    private final boolean isEdit;
     private OnValueChanged onValueChanged;
 
-    public ShoppingCartAdapter(List<ProductModel> itemList, OnItemClick<ProductModel> listener) {
+    public ShoppingCartAdapter(List<ProductModel> itemList, OnItemClick<ProductModel> listener, boolean isEdit) {
         super(itemList, listener);
         this.productModels = itemList;
+        this.isEdit = isEdit;
     }
 
     public void setOnValueChanged(OnValueChanged onValueChanged) {
@@ -35,6 +38,9 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
     @Override
     protected void bindData(ProductModel model, ItemCartBinding binding, int position) {
         binding.checkbox.setChecked(false);
+        if (!isEdit) {
+            binding.checkbox.setVisibility(View.GONE);
+        }
         AppUtils.loadImageUrl(binding.imageView, model.getPicture());
 
         if (model.getTotalAmount() == 0) {
@@ -52,8 +58,9 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
         binding.txtValueQuantity.setText(quantityString);
 
         // action
-        handlerAction(binding, position, model);
-
+        if (isEdit) {
+            handlerAction(binding, position, model);
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
