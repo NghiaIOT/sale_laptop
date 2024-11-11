@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.gson.reflect.TypeToken;
 import com.hcm.base.BaseFragment;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.local.prefs.KeyPref;
 import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
-import com.hcm.sale_laptop.data.model.other.SearchHistoryModel;
 import com.hcm.sale_laptop.databinding.FragmentSearchBinding;
 import com.hcm.sale_laptop.ui.adapter.PopularProductAdapter;
 import com.hcm.sale_laptop.ui.adapter.SearchHistoryAdapter;
@@ -26,6 +26,7 @@ import com.hcm.sale_laptop.ui.viewmodel.SearchViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.Constants;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.List;
 public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearchBinding> {
     private final Handler handler = new Handler();
     private Runnable searchRunnable;
+    private List<String> keywords;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -99,14 +101,17 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
 
     private void setupRVSearchHistory() {
         final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
-        final SearchHistoryModel model = shared.getObject(KeyPref.KEY_SEARCH_HISTORY, SearchHistoryModel.class);
-        if (model == null || !AppUtils.checkListHasData(model.getStringList())) {
+        final Type type = new TypeToken<List<String>>() {
+        }.getType();
+        List<String> keywords = shared.getListObject(KeyPref.KEY_SEARCH_HISTORY, type);
+
+        if (!AppUtils.checkListHasData(keywords)) {
             mBinding.txtNotYetSearch.setVisibility(View.VISIBLE);
         } else {
             mBinding.txtNotYetSearch.setVisibility(View.GONE);
-            final List<String> list = model.getStringList();
-            Collections.reverse(list);
-            mBinding.rvSearchHistory.setAdapter(new SearchHistoryAdapter(list, this::onItemClickSearchHistory));
+            this.keywords = keywords;
+            Collections.reverse(keywords);
+            mBinding.rvSearchHistory.setAdapter(new SearchHistoryAdapter(keywords, this::onItemClickSearchHistory));
         }
     }
 
@@ -119,21 +124,9 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
     }
 
     private void onItemClickSearchHistory(String item) {
-        if (searchRunnable != null) {
-            handler.removeCallbacks(searchRunnable);
+        if (item != null && !item.isEmpty()) {
+            mBinding.edtSearch.setText(item);
         }
-
-        searchRunnable = () -> {
-            // Called every time the text changes
-            final String query = item.trim();
-
-            // Perform API request if query is not empty
-            if (!query.isEmpty()) {
-                performSearchRequest(query);
-            }
-        };
-
-        handler.postDelayed(searchRunnable, 500); // Delay of 500 ms
     }
 
     @Override
@@ -157,8 +150,8 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
         mViewModel.getProductModels().observe(this, productModels -> {
             final PopularProductAdapter adapter = (PopularProductAdapter) mBinding.rvSuggestProduct.getAdapter();
             if (adapter != null && AppUtils.checkListHasData(productModels)) {
+                Collections.reverse(productModels);
                 if (productModels.size() > 6) {
-                    Collections.reverse(productModels);
                     adapter.setItems(productModels.subList(0, 6));
                 } else {
                     adapter.setItems(productModels);
@@ -171,6 +164,13 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
             if (adapter != null) {
                 adapter.setItems(productModels);
             }
+            if (mBinding.edtSearch.getText() == null) {
+                return;
+            }
+            if (!AppUtils.checkListHasData(productModels)) {
+                this.keywords = new ArrayList<>();
+            }
+            this.keywords.add(mBinding.edtSearch.getText().toString().trim());
         });
 
         mViewModel.showUISearch().observe(this, this::setHideOrShowUI);
@@ -204,6 +204,18 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
     public void onDestroyView() {
         super.onDestroyView();
         hideOrShowBottomNavi(true);
+
+        if (!AppUtils.checkListHasData(keywords)) {
+            return;
+        }
+
+        final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
+        shared.removeKey(KeyPref.KEY_SEARCH_HISTORY);
+        if (keywords.size() > 10) {
+            keywords = keywords.subList(keywords.size() - 10, keywords.size());
+        }
+
+        shared.saveListObject(KeyPref.KEY_SEARCH_HISTORY, this.keywords);
     }
 
     private void hideOrShowBottomNavi(boolean isShow) {

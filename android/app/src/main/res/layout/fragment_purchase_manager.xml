@@ -49,7 +49,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
-                android:src="@drawable/ic_wallet" />
+                android:src="@drawable/ic_waiting_confirm" />
 
             <TextView
                 android:id="@+id/tvTab1"
@@ -71,7 +71,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
-                android:src="@drawable/ic_delete_oder" />
+                android:src="@drawable/ic_cancel_order" />
 
             <TextView
                 android:id="@+id/tvTab2"
@@ -93,7 +93,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
-                android:src="@drawable/ic_rate_tab" />
+                android:src="@drawable/ic_review" />
 
             <TextView
                 android:id="@+id/tvTab3"

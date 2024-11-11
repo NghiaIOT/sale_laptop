@@ -55,7 +55,7 @@ public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPay
         mBinding.txtTotalShippingCost.setText(AppUtils.customPrice(getShippingCost()));
         mBinding.txtDiscountAmount.setText(AppUtils.customPriceReduced(getDiscountAmount()));
 
-        double totalPayment = totalAmount + getShippingCost() - getDiscountAmount();
+        final double totalPayment = totalAmount + getShippingCost() - getDiscountAmount();
         mBinding.txtTotalPayment.setText(AppUtils.customPrice(totalPayment));
         final Type type = new TypeToken<List<AddressModel>>() {
         }.getType();
@@ -70,28 +70,25 @@ public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPay
                     break;
                 }
             }
-            String sb = model.getUserName() + " (" +
-                    model.getPhoneNumber() +
-                    ") \n" +
-                    model.getAddress();
-            mBinding.txtAddress.setText(sb);
+
+            setTextAddress(model);
         }
     }
 
     private double getDiscountAmount() {
-        int number = 0;
-        for (ProductModel model : CartManager.getOrderList()) {
-            number += (int) model.getOrderNumber();
-        }
-        return number * 150000;
+        return getOrderNumber() * 150000;
     }
 
     private double getShippingCost() {
+        return getOrderNumber() * 10000;
+    }
+
+    private int getOrderNumber() {
         int number = 0;
         for (ProductModel model : CartManager.getOrderList()) {
             number += (int) model.getOrderNumber();
         }
-        return number * 10000;
+        return number;
     }
 
     @Override
@@ -145,10 +142,14 @@ public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPay
 
     @Override
     public void onSelectedAddress(AddressModel model) {
-        String sb = model.getUserName() + " (" +
+        setTextAddress(model);
+    }
+
+    private void setTextAddress(AddressModel model) {
+        final String value = model.getUserName() + " (" +
                 model.getPhoneNumber() +
                 ") \n" +
                 model.getAddress();
-        mBinding.txtAddress.setText(sb);
+        mBinding.txtAddress.setText(value);
     }
 }

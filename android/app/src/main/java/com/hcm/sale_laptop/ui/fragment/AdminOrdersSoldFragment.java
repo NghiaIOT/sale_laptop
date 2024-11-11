@@ -11,14 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
-import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
-import com.hcm.sale_laptop.databinding.FragmentConfirmOrderSouldsBinding;
 import com.hcm.sale_laptop.databinding.FragmentOrderSouldsBinding;
-import com.hcm.sale_laptop.ui.adapter.AdminCancelOderAdapter;
-import com.hcm.sale_laptop.ui.adapter.AdminConfirmOderAdapter;
 import com.hcm.sale_laptop.ui.adapter.AdminOderSoldAdapter;
-import com.hcm.sale_laptop.ui.adapter.AdminRateAdapter;
 
 import java.util.ArrayList;
 
@@ -29,9 +24,7 @@ import java.util.ArrayList;
  */
 public class AdminOrdersSoldFragment extends BaseFragment<BaseViewModel<?>, FragmentOrderSouldsBinding> {
 
-
     AdminOderSoldAdapter confirmOderAdapter;
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

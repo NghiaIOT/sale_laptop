@@ -140,12 +140,21 @@ public abstract class BaseFragment<V extends BaseViewModel<?>, B extends ViewBin
      *
      * @return ID của layout fragment.
      */
-    protected abstract int getLayoutResourceId();
+    protected int getLayoutResourceId() {
+        if (mBinding != null) {
+            return mBinding.getRoot().getId();
+        }
+        return 0;
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         // Xử lý dọn dẹp tài nguyên khi view bị phá hủy
+        mBinding = null;
+        mActivity = null;
+        mContext = null;
+        mViewModel = null;
     }
 
     @Override

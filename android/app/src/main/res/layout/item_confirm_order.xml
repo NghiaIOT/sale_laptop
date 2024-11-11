@@ -19,12 +19,13 @@
             android:layout_width="104dp"
             android:layout_height="86dp"
             android:padding="5dp"
-            android:src="@drawable/change_pass_avatar" />
+            android:src="@drawable/change_pass_avatar"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -56,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:text="Asus Gaming G731-VEV089T"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -73,13 +74,13 @@
                     android:layout_height="wrap_content"
                     android:text="1.900.000"
                     android:textColor="@color/black55"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:text="VND"
                     android:textColor="@color/red"
                     android:textStyle="bold" />
@@ -101,7 +102,7 @@
                     android:id="@+id/tvQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:text="1"
                     android:textColor="@color/black55"
                     android:textStyle="bold" />
@@ -110,11 +111,13 @@
 
     </LinearLayout>
 
-    <ImageView
+    <View
         android:id="@+id/imgLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/line_32"
+        android:layout_height="@dimen/dp_2"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="#D9D9D9"
         app:layout_constraintTop_toBottomOf="@+id/ln1" />
 
     <LinearLayout
@@ -131,7 +134,7 @@
             android:layout_height="wrap_content"
             android:text="Thông tin khách hàng"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
 
         <TextView
@@ -152,14 +155,15 @@
             android:layout_height="wrap_content"
             android:text="45/52 đường k20, khuê mỹ , ngũ hành sơn" />
 
-
     </LinearLayout>
 
-    <ImageView
+    <View
         android:id="@+id/imgLine2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/line_32"
+        android:layout_height="@dimen/dp_2"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="#D9D9D9"
         app:layout_constraintTop_toBottomOf="@+id/ln2" />
 
     <LinearLayout
@@ -177,7 +181,7 @@
             android:layout_height="wrap_content"
             android:text="Phương thức thanh toán"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
 
         <TextView
@@ -186,14 +190,15 @@
             android:layout_height="wrap_content"
             android:text="Thanh toán khi nhận hàng" />
 
-
     </LinearLayout>
 
-    <ImageView
+    <View
         android:id="@+id/imgLine3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/line_32"
+        android:layout_height="@dimen/dp_2"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="#D9D9D9"
         app:layout_constraintTop_toBottomOf="@+id/ln3" />
 
     <LinearLayout
@@ -201,16 +206,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintTop_toBottomOf="@+id/imgLine3">
-
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Số tiền đơn hàng"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -219,7 +225,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Tổng tiền hàng" />
@@ -228,7 +234,7 @@
                 android:id="@+id/tvTongTienHang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:text="1.900.000" />
 
             <TextView
@@ -244,7 +250,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Tổng tiền phí vận chuyển " />
@@ -253,7 +259,7 @@
                 android:id="@+id/tvTongTienPhiVanChuyen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:text="25.000" />
 
             <TextView
@@ -269,7 +275,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Tiền giảm giá sản phẩm" />
@@ -278,7 +284,7 @@
                 android:id="@+id/tvTienGiamGiaSanPham"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:text="-750.000" />
 
             <TextView
@@ -294,7 +300,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
@@ -306,7 +312,7 @@
                 android:id="@+id/tvTongTienThanhToan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:text="1.125.000"
                 android:textColor="@color/red" />
 
@@ -332,21 +338,20 @@
 
             <TextView
                 android:id="@+id/tvTrangThai"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
                 android:layout_weight="1"
                 android:text="CHỜ XÁC NHẬN :"
                 android:textColor="@color/red" />
 
             <CheckBox
+                android:id="@+id/checkbox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_selector" />
         </LinearLayout>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
