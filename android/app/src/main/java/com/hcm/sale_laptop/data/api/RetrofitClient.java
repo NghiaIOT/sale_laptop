@@ -33,10 +33,11 @@ public class RetrofitClient {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             // Tạo OkHttpClient với timeout
+            final int timeout = 60;
             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .connectTimeout(timeout, TimeUnit.SECONDS)
+                    .readTimeout(timeout, TimeUnit.SECONDS)
+                    .writeTimeout(timeout, TimeUnit.SECONDS)
                     .addInterceptor(loggingInterceptor)
                     .build();
 

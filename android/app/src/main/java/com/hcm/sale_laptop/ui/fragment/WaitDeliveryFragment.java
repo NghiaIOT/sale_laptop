@@ -28,7 +28,7 @@ public class WaitDeliveryFragment extends BaseFragment<BaseViewModel<?>, Fragmen
 
     @Override
     protected void setupAction() {
-        setOnClickListener(mBinding.btnCancelOrder, view -> onBack());
+//        setOnClickListener(mBinding.btnCancelOrder, view -> onBack());
     }
 
     @Override
