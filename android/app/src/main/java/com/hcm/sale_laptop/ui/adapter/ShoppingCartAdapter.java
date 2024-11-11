@@ -31,7 +31,6 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
 
     @Override
     protected ItemCartBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
-
         return ItemCartBinding.inflate(inflater, parent, false);
     }
 
@@ -70,6 +69,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
             model.setOrderNumber(model.getOrderNumber() - 1);
             reloadPrice(model, position);
         });
+
         binding.btnPlus.setOnClickListener(view -> {
             model.setOrderNumber(model.getOrderNumber() + 1);
             reloadPrice(model, position);
@@ -86,10 +86,12 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
         float newPrice = model.getPrice() * model.getOrderNumber();
         model.setTotalAmount(newPrice);
         double totalAmount = 0;
+
         for (ProductModel element : productModels) {
             totalAmount += element.getTotalAmount();
         }
         notifyItemChanged(position);
+
         if (onValueChanged != null) {
             onValueChanged.onTotalAmountChanged(totalAmount);
         }

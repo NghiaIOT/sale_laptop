@@ -14,6 +14,12 @@ import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.databinding.FragmentPurchaseManagerBinding;
 import com.hcm.sale_laptop.ui.adapter.ViewPagerStateAdapter;
+import com.hcm.sale_laptop.ui.fragment.manager.CancelOderFragment;
+import com.hcm.sale_laptop.ui.fragment.manager.ConfirmOderFragment;
+import com.hcm.sale_laptop.ui.fragment.manager.RateFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +41,12 @@ public class PurchaseManagerFragment extends BaseFragment<BaseViewModel<?>, Frag
 
     @Override
     protected void setupUI() {
-        viewPagerStateAdapter = new ViewPagerStateAdapter(this);
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new ConfirmOderFragment());
+        fragments.add(new CancelOderFragment());
+        fragments.add(new RateFragment());
+
+        viewPagerStateAdapter = new ViewPagerStateAdapter(this, fragments);
         mBinding.viewPager.setAdapter(viewPagerStateAdapter);
         mBinding.viewPager.setUserInputEnabled(false);
 

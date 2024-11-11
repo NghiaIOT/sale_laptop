@@ -21,7 +21,6 @@ import com.hcm.sale_laptop.utils.AppUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,7 +51,6 @@ public class ShippingAddressFragment extends BaseFragment<BaseViewModel<?>, Frag
             mBinding.rvAddress.setAdapter(new AddressAdapter(new ArrayList<>(), this::onItemClick));
             return;
         }
-        Collections.reverse(list);
         mBinding.rvAddress.setAdapter(new AddressAdapter(list, this::onItemClick));
 
     }

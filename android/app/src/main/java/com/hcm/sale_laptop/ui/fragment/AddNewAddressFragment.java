@@ -42,39 +42,47 @@ public class AddNewAddressFragment extends BaseFragment<BaseViewModel<?>, Fragme
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
         setOnClickListener(mBinding.btnAddNewAddress, view -> {
-            final String name = mBinding.edtName.getText().toString();
-            if (name.isEmpty()) {
-                showToast("Bạn chưa nhập Tên người nhận");
-                return;
-            }
-            final String phoneNumber = mBinding.edtPhoneNumber.getText().toString();
-            if (phoneNumber.isEmpty()) {
-                showToast("Bạn chưa nhập SĐT người nhận");
-                return;
-            }
-            final String address = mBinding.edtAddress.getText().toString();
-            if (address.isEmpty()) {
-                showToast("Bạn chưa nhập Địa chỉ người nhận");
-                return;
-            }
-            final AddressModel model = new AddressModel(name, phoneNumber, address, false);
-            final Type type = new TypeToken<List<AddressModel>>() {
-            }.getType();
-
-            final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
-            List<AddressModel> addressModels = shared.getListObject(KeyPref.KEY_ADDRESS, type);
-            if (!AppUtils.checkListHasData(addressModels)) {
-                addressModels = new ArrayList<>();
-            }
-            addressModels.add(model);
-            shared.removeKey(KeyPref.KEY_ADDRESS);
-            shared.saveListObject(KeyPref.KEY_ADDRESS, addressModels);
-            showToast("Thêm Địa chỉ mới thành công");
-            if (onNewAddressAdded != null) {
-                onNewAddressAdded.onComplete(addressModels);
-                onBack();
-            }
+            actionAddNewAddress();
         });
+    }
+
+    private void actionAddNewAddress() {
+        final String name = mBinding.edtName.getText().toString();
+        final String phoneNumber = mBinding.edtPhoneNumber.getText().toString();
+        final String address = mBinding.edtAddress.getText().toString();
+
+        if (name.isEmpty()) {
+            showToast("Bạn chưa nhập Tên người nhận");
+            return;
+        }
+
+        if (phoneNumber.isEmpty()) {
+            showToast("Bạn chưa nhập SĐT người nhận");
+            return;
+        }
+
+        if (address.isEmpty()) {
+            showToast("Bạn chưa nhập Địa chỉ người nhận");
+            return;
+        }
+
+        final AddressModel model = new AddressModel(name, phoneNumber, address, false);
+        final Type type = new TypeToken<List<AddressModel>>() {
+        }.getType();
+
+        final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
+        List<AddressModel> addressModels = shared.getListObject(KeyPref.KEY_ADDRESS, type);
+        if (!AppUtils.checkListHasData(addressModels)) {
+            addressModels = new ArrayList<>();
+        }
+        addressModels.add(model);
+        shared.removeKey(KeyPref.KEY_ADDRESS);
+        shared.saveListObject(KeyPref.KEY_ADDRESS, addressModels);
+        showToast("Thêm Địa chỉ mới thành công");
+        if (onNewAddressAdded != null) {
+            onNewAddressAdded.onComplete(addressModels);
+            onBack();
+        }
     }
 
     @Override

@@ -4,22 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.hcm.sale_laptop.ui.fragment.manager.CancelOderFragment;
-import com.hcm.sale_laptop.ui.fragment.manager.ConfirmOderFragment;
-import com.hcm.sale_laptop.ui.fragment.manager.RateFragment;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewPagerStateAdapter extends FragmentStateAdapter {
 
-    ArrayList<Fragment> arrayList = new ArrayList<>();
+    List<Fragment> arrayList = new ArrayList<>();
 
-    public ViewPagerStateAdapter(@NonNull Fragment fragment) {
+    public ViewPagerStateAdapter(@NonNull Fragment fragment, List<Fragment> fragments) {
         super(fragment);
         arrayList.clear();
-        arrayList.add(new ConfirmOderFragment());
-        arrayList.add(new CancelOderFragment());
-        arrayList.add(new RateFragment());
+        this.arrayList = fragments;
     }
 
     @NonNull

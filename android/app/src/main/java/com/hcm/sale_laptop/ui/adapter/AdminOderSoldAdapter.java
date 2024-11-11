@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import com.hcm.base.BaseAdapter;
 import com.hcm.base.OnItemClick;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
-import com.hcm.sale_laptop.databinding.ItemEvaluateBinding;
 import com.hcm.sale_laptop.databinding.ItemOrderSoldBinding;
 
 import java.util.List;
