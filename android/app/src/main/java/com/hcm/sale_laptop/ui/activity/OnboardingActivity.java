@@ -7,8 +7,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.hcm.base.BaseActivity;
 import com.hcm.base.BaseRepository;
 import com.hcm.base.BaseViewModel;
+import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.local.prefs.KeyPref;
 import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
+import com.hcm.sale_laptop.data.model.other.OnboardingModel;
 import com.hcm.sale_laptop.databinding.ActivityOnboardingBinding;
 import com.hcm.sale_laptop.ui.adapter.ViewPagerOnboardingAdapter;
 
@@ -31,12 +33,13 @@ public class OnboardingActivity extends BaseActivity<BaseViewModel<BaseRepositor
 
     @Override
     protected void setupUI() {
-        final List<String> stringList = new ArrayList<String>() {{
-            add("Chào mừng bạn đến với cửa hàng của chúng tôi");
-            add("Giao hàng nhanh");
-            add("Hàng chất lượng");
+        final List<OnboardingModel> list = new ArrayList<OnboardingModel>() {{
+            add(new OnboardingModel("Chào mừng bạn đến với cửa hàng của chúng tôi", R.drawable.ic_welcome));
+            add(new OnboardingModel("Giao hàng nhanh", R.drawable.ic_fast_delivery));
+            add(new OnboardingModel("Hàng chất lượng", R.drawable.ic_quality_goods));
         }};
-        mBinding.vp.setAdapter(new ViewPagerOnboardingAdapter(stringList, null));
+
+        mBinding.vp.setAdapter(new ViewPagerOnboardingAdapter(list, null));
         mItemCount = Objects.requireNonNull(mBinding.vp.getAdapter()).getItemCount();
         mPageIndex = mBinding.vp.getCurrentItem();
         mBinding.wormDotsIndicator.attachTo(mBinding.vp);

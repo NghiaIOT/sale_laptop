@@ -13,24 +13,27 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.reflect.TypeToken;
 import com.hcm.base.BaseFragment;
-import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.local.prefs.KeyPref;
 import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
+import com.hcm.sale_laptop.data.model.network.request.OrderRequest;
 import com.hcm.sale_laptop.data.model.other.AddressModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
+import com.hcm.sale_laptop.data.model.other.ProductOrderModel;
 import com.hcm.sale_laptop.databinding.FragmentPaymentsBinding;
 import com.hcm.sale_laptop.ui.adapter.ShoppingCartAdapter;
+import com.hcm.sale_laptop.ui.viewmodel.PaymentsViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.CartManager;
 import com.hcm.sale_laptop.utils.Constants;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPaymentsBinding> implements ShippingAddressFragment.OnSelectedAddress {
+public class PaymentsFragment extends BaseFragment<PaymentsViewModel, FragmentPaymentsBinding> implements ShippingAddressFragment.OnSelectedAddress {
 
-    private Double totalAmount;
+    private double totalAmount;
 
     @Nullable
     @Override
@@ -63,15 +66,12 @@ public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPay
         final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
         List<AddressModel> addressModels = shared.getListObject(KeyPref.KEY_ADDRESS, type);
         if (AppUtils.checkListHasData(addressModels)) {
-            AddressModel model = addressModels.get(0);
-            for (AddressModel item : addressModels) {
-                if (item.isSelect()) {
-                    model = item;
+            for (AddressModel model : addressModels) {
+                if (model.isSelect()) {
+                    setTextAddress(model);
                     break;
                 }
             }
-
-            setTextAddress(model);
         }
     }
 
@@ -117,22 +117,57 @@ public class PaymentsFragment extends BaseFragment<BaseViewModel<?>, FragmentPay
         builder.setMessage("Bạn có chắc chắn muốn giao hàng đến người nhận: " + mBinding.txtAddress.getText().toString());
 
         builder.setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
-        builder.setPositiveButton("Đồng ý", (dialog, which) -> {
 
-            showToast("Bạn đã đặt đơn hàng thành công");
-            CartManager.clearOrderList();
+        builder.setPositiveButton("Đồng ý", (dialog, which) -> {
+            final double totalPayment = totalAmount + getShippingCost() - getDiscountAmount();
+            final List<ProductOrderModel> list = new ArrayList<>();
+            final OrderRequest request = new OrderRequest();
+
+            for (ProductModel model : CartManager.getOrderList()) {
+                ProductOrderModel product = new ProductOrderModel(model.getId(), (int) model.getOrderNumber());
+                list.add(product);
+            }
+            request.setAddress(mBinding.txtAddress.getText().toString().trim());
+            request.setUser_id(Constants.getUserModel().getId());
+            request.setTotal_product_amount(totalAmount);
+            request.setTotal_shipping_cost(getShippingCost());
+            request.setProduct_discount_amount(getDiscountAmount());
+            request.setTotal_payment(totalPayment);
+            request.setProducts(list);
+
+            mViewModel.order(request);
+
             dialog.dismiss();
-            final FragmentManager fragmentManager = getParentFragmentManager();
-            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         });
 
         final AlertDialog dialog = builder.create();
         dialog.show();
     }
 
+    private void handlerOrderSuccess() {
+        CartManager.clearOrderList();
+        final FragmentManager fragmentManager = getParentFragmentManager();
+        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     @Override
     protected void setupData() {
+        mViewModel = new PaymentsViewModel();
+        mViewModel.errorMessage.observe(this, this::showToast);
+        mViewModel.successMessage.observe(this, this::showToast);
+        mViewModel.isLoading.observe(this, isLoading -> {
+            if (isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
 
+        mViewModel.getIsOrderSuccess().observe(this, isSuccess -> {
+            if (isSuccess) {
+                handlerOrderSuccess();
+            }
+        });
     }
 
     @Override

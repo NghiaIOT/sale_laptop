@@ -23,6 +23,7 @@ import com.hcm.sale_laptop.ui.adapter.DiscountedProductAdapter;
 import com.hcm.sale_laptop.ui.adapter.PopularProductAdapter;
 import com.hcm.sale_laptop.ui.adapter.ViewPagerBannerAdapter;
 import com.hcm.sale_laptop.ui.viewmodel.HomeFragmentViewModel;
+import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.HomeFragmentViewModelFactory;
 import com.hcm.sale_laptop.utils.AppLogger;
 import com.hcm.sale_laptop.utils.AppUtils;
@@ -46,6 +47,13 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setup();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+        mainViewModel.setBottomNavVisibility(true);
     }
 
     @Override

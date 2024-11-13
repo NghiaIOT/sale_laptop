@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
@@ -17,6 +18,7 @@ import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentShoppingCartBinding;
 import com.hcm.sale_laptop.ui.adapter.ShoppingCartAdapter;
+import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.CartManager;
 import com.hcm.sale_laptop.utils.Constants;
@@ -39,10 +41,16 @@ public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, Fragmen
 
     @Override
     protected void setupUI() {
+        hideOrShowBottomNavi();
         final ShoppingCartAdapter adapter = new ShoppingCartAdapter(CartManager.getOrderList(), null, true);
         mBinding.rvProductCart.setAdapter(adapter);
         adapter.setOnValueChanged(this);
         loadTotalAmount();
+    }
+
+    private void hideOrShowBottomNavi() {
+        final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+        mainViewModel.setBottomNavVisibility(false);
     }
 
     private void loadTotalAmount() {

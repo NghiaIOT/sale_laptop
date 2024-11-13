@@ -24,6 +24,7 @@ public class WaitDeliveryFragment extends BaseFragment<BaseViewModel<?>, Fragmen
 
     @Override
     protected void setupUI() {
+
     }
 
     @Override

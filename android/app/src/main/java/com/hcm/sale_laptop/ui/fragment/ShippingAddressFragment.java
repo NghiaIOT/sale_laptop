@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.reflect.TypeToken;
 import com.hcm.base.BaseFragment;
@@ -17,6 +18,7 @@ import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
 import com.hcm.sale_laptop.data.model.other.AddressModel;
 import com.hcm.sale_laptop.databinding.FragmentShippingAddressBinding;
 import com.hcm.sale_laptop.ui.adapter.AddressAdapter;
+import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
 
 import java.lang.reflect.Type;
@@ -39,7 +41,13 @@ public class ShippingAddressFragment extends BaseFragment<BaseViewModel<?>, Frag
 
     @Override
     protected void setupUI() {
+        hideOrShowBottomNavi();
         setupRVAddress();
+    }
+
+    private void hideOrShowBottomNavi() {
+        final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+        mainViewModel.setBottomNavVisibility(false);
     }
 
     private void setupRVAddress() {
@@ -56,7 +64,7 @@ public class ShippingAddressFragment extends BaseFragment<BaseViewModel<?>, Frag
     }
 
     private void onItemClick(AddressModel model) {
-        this.addressModel = model;
+        this.addressModel = model.isSelect() ? model : null;
     }
 
     @Override

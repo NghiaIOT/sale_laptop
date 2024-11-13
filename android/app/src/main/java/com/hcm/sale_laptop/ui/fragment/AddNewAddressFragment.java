@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.reflect.TypeToken;
 import com.hcm.base.BaseFragment;
@@ -15,6 +16,7 @@ import com.hcm.sale_laptop.data.local.prefs.KeyPref;
 import com.hcm.sale_laptop.data.local.prefs.SharedPrefManager;
 import com.hcm.sale_laptop.data.model.other.AddressModel;
 import com.hcm.sale_laptop.databinding.FragmentAddNewAddressBinding;
+import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
 
 import java.lang.reflect.Type;
@@ -35,7 +37,7 @@ public class AddNewAddressFragment extends BaseFragment<BaseViewModel<?>, Fragme
 
     @Override
     protected void setupUI() {
-
+        hideOrShowBottomNavi();
     }
 
     @Override
@@ -88,6 +90,11 @@ public class AddNewAddressFragment extends BaseFragment<BaseViewModel<?>, Fragme
     @Override
     protected void setupData() {
 
+    }
+
+    private void hideOrShowBottomNavi() {
+        final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+        mainViewModel.setBottomNavVisibility(false);
     }
 
     @Override
