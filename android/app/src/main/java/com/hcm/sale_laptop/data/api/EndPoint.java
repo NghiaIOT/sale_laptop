@@ -9,4 +9,5 @@ public final class EndPoint {
     public static final String ADMIN_BANNER = "admin/banner";
     public static final String ADMIN_PRODUCT_SALE = "/admin/product/sale";
     public static final String ORDERS = "/orders";
+    public static final String ORDERS_ALL = "/orders/all";
 }

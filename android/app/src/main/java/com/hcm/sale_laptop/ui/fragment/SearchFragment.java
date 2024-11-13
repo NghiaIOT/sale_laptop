@@ -167,10 +167,17 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
             if (mBinding.edtSearch.getText() == null) {
                 return;
             }
-            if (!AppUtils.checkListHasData(productModels)) {
-                this.keywords = new ArrayList<>();
+
+            if (AppUtils.checkListHasData(productModels)) {
+                if (this.keywords == null) {
+                    this.keywords = new ArrayList<>();
+                    this.mBinding.txtNotYetSearch.setVisibility(View.GONE);
+                }
+                final String key = mBinding.edtSearch.getText().toString().trim();
+                if (!this.keywords.contains(key)) {
+                    this.keywords.add(key);
+                }
             }
-            this.keywords.add(mBinding.edtSearch.getText().toString().trim());
         });
 
         mViewModel.showUISearch().observe(this, this::setHideOrShowUI);
@@ -181,7 +188,6 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
             add(mBinding.txtSuggestSearch);
             add(mBinding.rvSearchHistory);
             add(mBinding.line);
-            add(mBinding.txtNotYetSearch);
         }};
     }
 
@@ -211,6 +217,7 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
 
         final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
         shared.removeKey(KeyPref.KEY_SEARCH_HISTORY);
+
         if (keywords.size() > 10) {
             keywords = keywords.subList(keywords.size() - 10, keywords.size());
         }

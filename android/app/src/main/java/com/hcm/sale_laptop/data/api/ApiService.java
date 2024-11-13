@@ -7,6 +7,7 @@ import com.hcm.sale_laptop.data.model.network.request.SignupRequest;
 import com.hcm.sale_laptop.data.model.network.response.BannerResponse;
 import com.hcm.sale_laptop.data.model.network.response.BrandResponse;
 import com.hcm.sale_laptop.data.model.network.response.LoginResponse;
+import com.hcm.sale_laptop.data.model.network.response.OrderResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductSaleResponse;
 import com.hcm.sale_laptop.data.model.network.response.SignupResponse;
@@ -41,8 +42,11 @@ public interface ApiService {
     Single<ProductResponse> searchProducts(@Query("title") String keyWord);
 
     @GET(EndPoint.ADMIN_PRODUCT)
-    Single<ProductResponse> getProductsByBrand(@Query("category") String id);
+    Single<ProductResponse> getProductsByBrand(@Query("category_id") String id);
 
     @POST(EndPoint.ORDERS)
     Single<BaseResponse<Object>> order(@Body OrderRequest request);
+
+    @GET(EndPoint.ORDERS_ALL)
+    Single<OrderResponse> getOrderData();
 }

@@ -1,7 +1,7 @@
 package com.hcm.sale_laptop.data.enums;
 
 public enum OrderStatus {
-    PENDING_CONFIRMATION("Chờ xác nhận"),
+    PENDING_CONFIRMATION("CHỜ XÁC NHẬN"),
     AWAITING_PICKUP("Chờ lấy hàng"),
     AWAITING_DELIVERY("Chờ giao"),
     CANCELED("Hủy đơn"),

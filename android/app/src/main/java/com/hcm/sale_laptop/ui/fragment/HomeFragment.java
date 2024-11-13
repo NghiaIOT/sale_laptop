@@ -25,7 +25,6 @@ import com.hcm.sale_laptop.ui.adapter.ViewPagerBannerAdapter;
 import com.hcm.sale_laptop.ui.viewmodel.HomeFragmentViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.HomeFragmentViewModelFactory;
-import com.hcm.sale_laptop.utils.AppLogger;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.CartManager;
 import com.hcm.sale_laptop.utils.Constants;
@@ -173,7 +172,6 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
     }
 
     private void onClickBrand(BrandModel object) {
-        AppLogger.d("onClickPopularProduct : ", object.getName());
         final BrandFragment fragment = new BrandFragment();
         final Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_BRAND_MODEL, object);

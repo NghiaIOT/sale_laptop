@@ -5,9 +5,12 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:paddingStart="10dp"
+    android:paddingTop="@dimen/dp_5"
+    android:paddingEnd="10dp">
 
     <ImageView
+        android:id="@+id/image_view"
         android:layout_width="104dp"
         android:layout_height="86dp"
         android:padding="5dp"
@@ -19,24 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mã đơn hàng : " />
-
-            <TextView
-                android:id="@+id/tvMaDonHang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="12345" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/tvNameProduct"
@@ -74,28 +59,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="1"
-                android:textColor="@color/black55"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thời gian :"
-                android:textColor="@color/black55"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvNgay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="17/11/2024"
                 android:textColor="@color/black55"
                 android:textStyle="bold" />
         </LinearLayout>
