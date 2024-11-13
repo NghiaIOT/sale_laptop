@@ -80,7 +80,23 @@ public abstract class BaseFragment<V extends BaseViewModel<?>, B extends ViewBin
     @SuppressLint("CommitTransaction")
     public void addFragment(Fragment fragment, int containerId, boolean addToBackStack) {
         final FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.add(containerId, fragment);
+        transaction.replace(containerId, fragment);
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+        transaction.commit();
+    }
+
+    /**
+     * Thay thế Fragment trong container.
+     *
+     * @param fragment       Fragment mới cần thay thế.
+     * @param containerId    ID của container trong layout.
+     * @param addToBackStack Có thêm vào back stack hay không.
+     */
+    public void replaceFragment(Fragment fragment, int containerId, boolean addToBackStack) {
+        final FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(containerId, fragment);
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
@@ -99,22 +115,6 @@ public abstract class BaseFragment<V extends BaseViewModel<?>, B extends ViewBin
 
     public BaseActivity<V, B> getBaseActivity() {
         return mActivity;
-    }
-
-    /**
-     * Thay thế Fragment trong container.
-     *
-     * @param fragment       Fragment mới cần thay thế.
-     * @param containerId    ID của container trong layout.
-     * @param addToBackStack Có thêm vào back stack hay không.
-     */
-    public void replaceFragment(Fragment fragment, int containerId, boolean addToBackStack) {
-        final FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(containerId, fragment);
-        if (addToBackStack) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
     }
 
     public void setOnTouchListener(View view, View.OnTouchListener listener) {
@@ -151,10 +151,6 @@ public abstract class BaseFragment<V extends BaseViewModel<?>, B extends ViewBin
     public void onDestroyView() {
         super.onDestroyView();
         // Xử lý dọn dẹp tài nguyên khi view bị phá hủy
-        mBinding = null;
-        mActivity = null;
-        mContext = null;
-        mViewModel = null;
     }
 
     @Override

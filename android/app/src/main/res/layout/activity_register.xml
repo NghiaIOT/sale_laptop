@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/todo"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_cover_photo" />
+                android:src="@drawable/ic_register" />
         </androidx.cardview.widget.CardView>
 
         <TextView

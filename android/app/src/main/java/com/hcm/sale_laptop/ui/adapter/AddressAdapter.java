@@ -51,7 +51,4 @@ public class AddressAdapter extends BaseAdapter<AddressModel, ItemAddressBinding
         });
     }
 
-    public interface OnCheckBoxChanged {
-        void onChanged(int position, boolean isCheck);
-    }
 }

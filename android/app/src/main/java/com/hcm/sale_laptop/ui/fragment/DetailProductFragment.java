@@ -45,7 +45,7 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
 
     @Override
     protected void setupUI() {
-        hideOrShowBottomNavi(false);
+        hideOrShowBottomNavi();
 
         mBinding.txtProductName.setText(productModel.getTitle());
         mBinding.btnAddCart.setActivated(true);
@@ -59,8 +59,6 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
     @Override
     public void onResume() {
         super.onResume();
-//        this.productModel.setOrderNumber(1);
-//        this.productModel.setTotalAmount(0);
     }
 
     @Override
@@ -89,14 +87,8 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
         return mBinding.getRoot().getId();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        hideOrShowBottomNavi(true);
-    }
-
-    private void hideOrShowBottomNavi(boolean isShow) {
+    private void hideOrShowBottomNavi() {
         final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
-        mainViewModel.setBottomNavVisibility(isShow);
+        mainViewModel.setBottomNavVisibility(false);
     }
 }

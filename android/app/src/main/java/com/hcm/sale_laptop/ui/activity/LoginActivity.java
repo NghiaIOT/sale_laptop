@@ -39,12 +39,8 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel, Activity
                 showToast("Bạn không có kết nối mạng");
             }
         });
-        final SharedPrefManager shared = SharedPrefManager.getInstance(this);
-        final boolean onboardCompleted = shared.getBoolean(KeyPref.KEY_ONBOARDING_COMPLETED, false);
-        final Class<?> targetActivity = onboardCompleted ? MainActivity.class : OnboardingActivity.class;
-//        navigateTo(targetActivity);
-//        finishActivity();
-//        setOnClickListener(mBinding.txtForgotPassword, view -> navigateTo(ForgotPasswordActivity.class));
+
+        setOnClickListener(mBinding.txtForgotPassword, view -> navigateTo(ForgotPasswordActivity.class));
     }
 
     @Override
@@ -60,7 +56,9 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel, Activity
     protected void setupData() {
         mViewModel = new ViewModelProvider(this, new LoginActivityViewModelFactory(getApplication()))
                 .get(LoginActivityViewModel.class);
+
         mViewModel.errorMessage.observe(this, this::showToast);
+
         mViewModel.getUserModelWhenLoginSuccess().observe(this, model -> {
             final SharedPrefManager shared = SharedPrefManager.getInstance(this);
             if (mBinding.cbRememberAccount.isChecked()) {
@@ -81,7 +79,9 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel, Activity
     private void saveData(SharedPrefManager shared) {
         final String userName = mBinding.editUserName.getText().toString();
         final String userPassword = mBinding.editPassword.getText().toString();
+
         shared.saveBoolean(KeyPref.KEY_REMEMBER_ACCOUNT, true);
+
         if (!AppUtils.stringNullOrEmpty(userName)) {
             shared.saveString(KeyPref.KEY_USER_NAME, userName);
         }
@@ -93,11 +93,15 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel, Activity
     private void configEditText(SharedPrefManager sharedPrefManager) {
         final Drawable offIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_off_eye_24, null);
         final Drawable onIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_on_eye_24, null);
+
         configEditTextPassword(mBinding.editPassword, offIcon, onIcon);
+
         final String userName = sharedPrefManager.getString(KeyPref.KEY_USER_NAME, "");
         final String userPassword = sharedPrefManager.getString(KeyPref.KEY_USER_PASSWORD, "");
+
         final boolean isSaveData = sharedPrefManager.getBoolean(KeyPref.KEY_REMEMBER_ACCOUNT, false);
         if (!isSaveData) return;
+
         if (!AppUtils.stringNullOrEmpty(userName)) {
             mBinding.editUserName.setText(userName);
         }

@@ -1,6 +1,8 @@
 package com.hcm.sale_laptop.data.api;
 
+import com.hcm.base.BaseResponse;
 import com.hcm.sale_laptop.data.model.network.request.LoginRequest;
+import com.hcm.sale_laptop.data.model.network.request.OrderRequest;
 import com.hcm.sale_laptop.data.model.network.request.SignupRequest;
 import com.hcm.sale_laptop.data.model.network.response.BannerResponse;
 import com.hcm.sale_laptop.data.model.network.response.BrandResponse;
@@ -38,6 +40,9 @@ public interface ApiService {
     @GET(EndPoint.ADMIN_PRODUCT)
     Single<ProductResponse> searchProducts(@Query("title") String keyWord);
 
-    @GET(EndPoint.ADMIN_CATEGORY)
+    @GET(EndPoint.ADMIN_PRODUCT)
     Single<ProductResponse> getProductsByBrand(@Query("category") String id);
+
+    @POST(EndPoint.ORDERS)
+    Single<BaseResponse<Object>> order(@Body OrderRequest request);
 }

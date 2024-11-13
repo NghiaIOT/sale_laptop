@@ -11,6 +11,7 @@ import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.databinding.ActivityForgotPasswordBinding;
 import com.hcm.sale_laptop.ui.viewmodel.ForgotPasswordActivityViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.ForgotPasswordActivityViewModelFactory;
+import com.hcm.sale_laptop.utils.AppUtils;
 
 public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordActivityViewModel, ActivityForgotPasswordBinding> {
 
@@ -36,7 +37,20 @@ public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordActivityV
 
     @Override
     protected void setupAction() {
+        setOnClickListener(mBinding.btnLogin, view -> {
+            final String email = mBinding.editUserName.getText().toString();
+            if (email.isEmpty()) {
+                showToast("Bạn chưa nhập email");
+                return;
+            }
 
+            if (!AppUtils.isEmailValid(email)) {
+                showToast("Định dạng bạn nhập chưa phải là định dạng của email");
+                return;
+            }
+
+            mViewModel.requestApiValidEmail(email);
+        });
     }
 
     @Override

@@ -81,8 +81,7 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
                 .doOnSubscribe(dis -> setLoading(true))
                 .doOnError(error -> setLoading(false))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handlerBannerResponse, throwable -> setErrorMessage(throwable.getMessage())
-                );
+                .subscribe(this::handlerBannerResponse, throwable -> setErrorMessage(throwable.getMessage()));
         addDisposable(disposable);
     }
 
@@ -92,8 +91,8 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
                 .doOnSubscribe(dis -> setLoading(true))
                 .doOnError(error -> setLoading(false))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handlerProductResponse, throwable -> setErrorMessage(throwable.getMessage())
-                );
+                .subscribe(this::handlerProductResponse,
+                        throwable -> setErrorMessage(throwable.getMessage()));
         addDisposable(disposable);
     }
 
@@ -103,8 +102,8 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
                 .doOnSubscribe(dis -> setLoading(true))
                 .doOnError(error -> setLoading(false))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handlerBrandResponse, throwable -> setErrorMessage(throwable.getMessage())
-                );
+                .subscribe(this::handlerBrandResponse,
+                        throwable -> setErrorMessage(throwable.getMessage()));
         addDisposable(disposable);
     }
 
