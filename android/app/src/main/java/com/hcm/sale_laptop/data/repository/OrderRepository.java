@@ -6,6 +6,7 @@ import com.hcm.sale_laptop.data.api.ApiService;
 import com.hcm.sale_laptop.data.api.RetrofitClient;
 import com.hcm.sale_laptop.data.model.network.request.CancelOrderRequest;
 import com.hcm.sale_laptop.data.model.network.response.OrderResponse;
+import com.hcm.sale_laptop.utils.Constants;
 
 import io.reactivex.rxjava3.core.Single;
 
@@ -22,7 +23,8 @@ public class OrderRepository extends BaseRepository {
     }
 
     public Single<BaseResponse<Object>> cancelOrder(CancelOrderRequest request) {
-        return applySingle(apiService.cancelOrder(request));
+        final String token = Constants.getToken();
+        return applySingle(apiService.cancelOrder(token, request.getOrder_id(), request.getReason()));
     }
 
     public Single<OrderResponse> getDataReview() {
