@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hcm.base.BaseActivity;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.databinding.ActivityMainAdminBinding;
-import com.hcm.sale_laptop.ui.fragment.AccountFragment;
-import com.hcm.sale_laptop.ui.fragment.AdminOrdersSoldFragment;
-import com.hcm.sale_laptop.ui.fragment.PurchaseManagerFragment;
+import com.hcm.sale_laptop.ui.fragment.manager.AdminAccountFragment;
+import com.hcm.sale_laptop.ui.fragment.manager.AdminOrdersSoldFragment;
+import com.hcm.sale_laptop.ui.fragment.manager.AdminPurchaseManagerFragment;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 import com.hcm.sale_laptop.ui.viewmodel.factory.MainActivityViewModelFactory;
 
@@ -26,7 +26,7 @@ public class AdminActivity extends BaseActivity<MainActivityViewModel, ActivityM
         setContentView(mBinding.getRoot());
         // Load default fragment
         if (savedInstanceState == null) {
-            loadFragment(new PurchaseManagerFragment());
+            loadFragment(new AdminPurchaseManagerFragment());
         }
         setup();
     }
@@ -42,13 +42,13 @@ public class AdminActivity extends BaseActivity<MainActivityViewModel, ActivityM
             Fragment fragment = null;
             final int id = item.getItemId();
             if (id == R.id.nav_manager) {
-                fragment = new PurchaseManagerFragment();
+                fragment = new AdminPurchaseManagerFragment();
             }
             if (id == R.id.nav_orders) {
                 fragment = new AdminOrdersSoldFragment();
             }
             if (id == R.id.nav_account) {
-                fragment = new AccountFragment();
+                fragment = new AdminAccountFragment();
             }
             loadFragment(fragment);
             return true;

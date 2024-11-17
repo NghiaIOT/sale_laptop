@@ -1,4 +1,4 @@
-package com.hcm.sale_laptop.ui.fragment;
+package com.hcm.sale_laptop.ui.fragment.manager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.databinding.FragmentChangePasswordBinding;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 
-public class AdminRevenueReportFragment extends BaseFragment<BaseViewModel<?>, FragmentChangePasswordBinding> {
+public class AdminChangePasswordFragment extends BaseFragment<BaseViewModel<?>, FragmentChangePasswordBinding> {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

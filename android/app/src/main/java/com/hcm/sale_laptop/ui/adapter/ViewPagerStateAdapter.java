@@ -4,16 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPagerStateAdapter extends FragmentStateAdapter {
 
-    List<Fragment> arrayList = new ArrayList<>();
+    final List<Fragment> arrayList;
 
     public ViewPagerStateAdapter(@NonNull Fragment fragment, List<Fragment> fragments) {
         super(fragment);
-        arrayList.clear();
         this.arrayList = fragments;
     }
 
@@ -21,7 +19,6 @@ public class ViewPagerStateAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         return arrayList.get(position);
-
     }
 
     @Override

@@ -42,6 +42,8 @@ public class CartManager {
     }
 
     public static ProductModel findById(String id) {
+        if (id == null) return null;
+
         final Optional<ProductModel> result = orderList.stream()
                 .filter(model -> model.getId().equalsIgnoreCase(id))
                 .findFirst();

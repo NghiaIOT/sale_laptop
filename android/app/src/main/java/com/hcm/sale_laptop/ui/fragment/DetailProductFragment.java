@@ -23,7 +23,7 @@ import com.hcm.sale_laptop.utils.Constants;
 
 public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, FragmentProductDetailBinding> {
 
-    ProductModel productModel;
+    private ProductModel productModel;
 
     @Nullable
     @Override

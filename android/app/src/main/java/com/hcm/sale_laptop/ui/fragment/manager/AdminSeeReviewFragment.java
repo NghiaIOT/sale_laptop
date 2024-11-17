@@ -6,27 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
-import com.hcm.sale_laptop.databinding.FragmentConfirmOrderSouldsBinding;
+import com.hcm.sale_laptop.databinding.FragmentAdminSeeReviewBinding;
 import com.hcm.sale_laptop.ui.adapter.AdminRateAdapter;
 
 import java.util.ArrayList;
 
-public class RateFragment extends BaseFragment<BaseViewModel<?>, FragmentConfirmOrderSouldsBinding> {
-
-
-    AdminRateAdapter adapter;
-
+public class AdminSeeReviewFragment extends BaseFragment<BaseViewModel<?>, FragmentAdminSeeReviewBinding> {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentConfirmOrderSouldsBinding.inflate(inflater, container, false);
+        mBinding = FragmentAdminSeeReviewBinding.inflate(inflater, container, false);
         setup();
         return mBinding.getRoot();
     }
@@ -34,12 +29,12 @@ public class RateFragment extends BaseFragment<BaseViewModel<?>, FragmentConfirm
     @Override
     protected void setupUI() {
 
-        ArrayList arrayList = new ArrayList<>();
-        ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by");
+        final ArrayList<ProductModel> arrayList = new ArrayList<>();
+        final ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by", 54, 54);
         arrayList.add(model);
         arrayList.add(model);
 
-        adapter = new AdminRateAdapter(arrayList, this::onClickDiscountedProduct);
+        final AdminRateAdapter adapter = new AdminRateAdapter(arrayList, this::onClickDiscountedProduct);
         mBinding.recyclerView.setAdapter(adapter);
         adapter.setItems(arrayList);
     }
@@ -56,17 +51,5 @@ public class RateFragment extends BaseFragment<BaseViewModel<?>, FragmentConfirm
     @Override
     protected void setupData() {
 
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
-    @Override
-    protected int getLayoutResourceId() {
-        return 0;
     }
 }

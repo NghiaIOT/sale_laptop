@@ -165,6 +165,10 @@ public abstract class BaseFragment<V extends BaseViewModel<?>, B extends ViewBin
         }
     }
 
+    protected BaseFragment<?, ?> getBaseFragment() {
+        return this;
+    }
+
     protected void hideProgressBar() {
         if (mActivity != null) {
             mActivity.hideProgressBar();

@@ -28,8 +28,12 @@ public class ProductModel implements Parcelable, Cloneable {
     private String created_by;
     private long orderNumber;
     private double totalAmount;
+    private int quantity;
+    private double sales;
 
-    public ProductModel(String id, String category_id, String title, String slug, String picture, String summary, String description, float price, String created_by) {
+    public ProductModel(String id, String category_id, String title, String slug,
+                        String picture, String summary, String description, float price,
+                        String created_by, int quantity, double sales) {
         this.id = id;
         this.category_id = category_id;
         this.title = title;
@@ -39,6 +43,8 @@ public class ProductModel implements Parcelable, Cloneable {
         this.description = description;
         this.price = price;
         this.created_by = created_by;
+        this.quantity = quantity;
+        this.sales = sales;
     }
 
     protected ProductModel(Parcel in) {
@@ -51,6 +57,30 @@ public class ProductModel implements Parcelable, Cloneable {
         description = in.readString();
         price = in.readFloat();
         created_by = in.readString();
+    }
+
+    public double getSales() {
+        return sales;
+    }
+
+    public void setSales(double sales) {
+        this.sales = sales;
+    }
+
+    public String getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getTotalAmount() {
@@ -135,10 +165,6 @@ public class ProductModel implements Parcelable, Cloneable {
 
     public String getCreatedBy() {
         return created_by;
-    }
-
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
     }
 
     @Override

@@ -68,11 +68,24 @@ public abstract class BaseAdapter<T, VB extends ViewBinding> extends RecyclerVie
         notifyDataSetChanged();
     }
 
+    public List<T> getItemList() {
+        return this.itemList;
+    }
+
     // Phương thức để thêm dữ liệu
     @SuppressLint("NotifyDataSetChanged")
     public void addItems(List<T> items) {
         this.itemList.addAll(items);
         notifyDataSetChanged();
+    }
+
+    // Phương thức để xóa dữ liệu
+    @SuppressLint("NotifyDataSetChanged")
+    public void removeItem(int position) {
+        if (this.itemList != null && position < this.itemList.size()) {
+            this.itemList.remove(position);
+            notifyDataSetChanged();
+        }
     }
 
     // ViewHolder chung sử dụng ViewBinding

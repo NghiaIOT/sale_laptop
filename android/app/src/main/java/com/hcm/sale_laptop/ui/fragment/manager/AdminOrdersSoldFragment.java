@@ -1,4 +1,4 @@
-package com.hcm.sale_laptop.ui.fragment;
+package com.hcm.sale_laptop.ui.fragment.manager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentOrderSouldsBinding;
-import com.hcm.sale_laptop.ui.adapter.AdminOderSoldAdapter;
+import com.hcm.sale_laptop.ui.adapter.AdminOrderSoldAdapter;
 
 import java.util.ArrayList;
 
@@ -23,8 +22,6 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AdminOrdersSoldFragment extends BaseFragment<BaseViewModel<?>, FragmentOrderSouldsBinding> {
-
-    AdminOderSoldAdapter confirmOderAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -37,12 +34,12 @@ public class AdminOrdersSoldFragment extends BaseFragment<BaseViewModel<?>, Frag
 
     @Override
     protected void setupUI() {
-        ArrayList arrayList = new ArrayList<>();
-        ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by");
+        final ArrayList<ProductModel> arrayList = new ArrayList<>();
+        final ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by", 43, 45);
         arrayList.add(model);
         arrayList.add(model);
 
-        confirmOderAdapter = new AdminOderSoldAdapter(arrayList, this::onClickDiscountedProduct);
+        final AdminOrderSoldAdapter confirmOderAdapter = new AdminOrderSoldAdapter(arrayList, this::onClickDiscountedProduct);
         mBinding.recyclerView.setAdapter(confirmOderAdapter);
         confirmOderAdapter.setItems(arrayList);
     }
@@ -59,17 +56,5 @@ public class AdminOrdersSoldFragment extends BaseFragment<BaseViewModel<?>, Frag
     @Override
     protected void setupData() {
 
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
-    @Override
-    protected int getLayoutResourceId() {
-        return 0;
     }
 }

@@ -11,9 +11,9 @@ import com.hcm.sale_laptop.databinding.ItemOrderSoldBinding;
 import java.util.List;
 
 
-public class AdminOderSoldAdapter extends BaseAdapter<ProductModel, ItemOrderSoldBinding> {
+public class AdminOrderSoldAdapter extends BaseAdapter<ProductModel, ItemOrderSoldBinding> {
 
-    public AdminOderSoldAdapter(List<ProductModel> itemList, OnItemClick<ProductModel> listener) {
+    public AdminOrderSoldAdapter(List<ProductModel> itemList, OnItemClick<ProductModel> listener) {
         super(itemList, listener);
     }
 

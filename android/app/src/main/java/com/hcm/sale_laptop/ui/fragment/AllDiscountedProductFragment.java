@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.hcm.base.BaseFragment;
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
-import com.hcm.sale_laptop.data.model.other.ProductSaleModel;
 import com.hcm.sale_laptop.databinding.FragmentAllDiscountedProductBinding;
 import com.hcm.sale_laptop.ui.adapter.DiscountedProductAdapter;
 import com.hcm.sale_laptop.ui.viewmodel.AllDiscountedProductViewModel;
@@ -46,7 +45,7 @@ public class AllDiscountedProductFragment extends BaseFragment<AllDiscountedProd
         mBinding.rvDiscountedProduct.setAdapter(adapter);
     }
 
-    private void onClickDiscountedProduct(ProductSaleModel object) {
+    private void onClickDiscountedProduct(ProductModel object) {
         final DetailProductFragment fragment = new DetailProductFragment();
         final Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_PRODUCT_MODEL, object);

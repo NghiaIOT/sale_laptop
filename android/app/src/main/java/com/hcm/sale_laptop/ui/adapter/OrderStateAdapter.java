@@ -1,6 +1,7 @@
 package com.hcm.sale_laptop.ui.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.hcm.base.BaseAdapter;
@@ -15,10 +16,25 @@ import java.util.List;
 public class OrderStateAdapter extends BaseAdapter<OrderStateModel, ItemConfirmOrderBinding> {
 
     private final OrderStatus orderStatus;
+    private final boolean isHideCheckbox;
+    private List<OrderStateModel> itemList;
 
-    public OrderStateAdapter(List<OrderStateModel> itemList, OnItemClick<OrderStateModel> listener, OrderStatus status) {
+    public OrderStateAdapter(List<OrderStateModel> itemList, OnItemClick<OrderStateModel> listener, OrderStatus status, boolean isHideCheckbox) {
         super(itemList, listener);
+        this.itemList = itemList;
         this.orderStatus = status;
+        this.isHideCheckbox = isHideCheckbox;
+    }
+
+    public void handlerRemoveItem(int position) {
+        removeItem(position);
+        resetCheckbox();
+    }
+
+    private void resetCheckbox() {
+        for (OrderStateModel model : itemList) {
+            model.setSelect(false);
+        }
     }
 
     @Override
@@ -35,5 +51,29 @@ public class OrderStateAdapter extends BaseAdapter<OrderStateModel, ItemConfirmO
         binding.tvTongTienHang.setText(AppUtils.customPrice(item.getPrices_order()));
         binding.tvTongTienPhiVanChuyen.setText("");
         binding.tvTongTienThanhToan.setText(AppUtils.customPrice(item.getPrices_order()));
+
+        if (isHideCheckbox) {
+            binding.checkbox.setVisibility(View.GONE);
+        } else {
+            binding.checkbox.setVisibility(View.VISIBLE);
+            binding.checkbox.setChecked(item.isSelect());
+
+            binding.checkbox.setOnClickListener(view -> {
+                itemList = this.getItemList();
+
+                for (OrderStateModel model : itemList) {
+                    model.setSelect(false);
+                }
+
+                item.setSelect(binding.checkbox.isChecked());
+
+                binding.getRoot().post(this::notifyDataSetChanged);
+                final OnItemClick<OrderStateModel> onItemClick = getListener();
+                if (onItemClick != null) {
+                    item.setPosition(position);
+                    onItemClick.onClick(item);
+                }
+            });
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.hcm.sale_laptop.data.api;
 
 import com.hcm.base.BaseResponse;
+import com.hcm.sale_laptop.data.model.network.request.CancelOrderRequest;
 import com.hcm.sale_laptop.data.model.network.request.LoginRequest;
 import com.hcm.sale_laptop.data.model.network.request.OrderRequest;
 import com.hcm.sale_laptop.data.model.network.request.SignupRequest;
@@ -14,6 +15,7 @@ import com.hcm.sale_laptop.data.model.network.response.SignupResponse;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -49,4 +51,13 @@ public interface ApiService {
 
     @GET(EndPoint.ORDERS_ALL)
     Single<OrderResponse> getOrderData();
+
+    @GET(EndPoint.ORDERS_BY_USER)
+    Single<OrderResponse> getOrderByUser(@Query("user_id") String id);
+
+    @DELETE(EndPoint.ORDERS)
+    Single<BaseResponse<Object>> cancelOrder(@Body CancelOrderRequest request);
+
+    @GET(EndPoint.ORDERS_REVIEW)
+    Single<OrderResponse> getDataReview();
 }

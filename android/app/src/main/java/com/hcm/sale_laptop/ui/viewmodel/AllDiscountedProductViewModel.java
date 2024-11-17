@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.hcm.base.BaseViewModel;
 import com.hcm.sale_laptop.data.model.network.response.ProductSaleResponse;
-import com.hcm.sale_laptop.data.model.other.ProductSaleModel;
+import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.data.model.other.ProductSaleObject;
 import com.hcm.sale_laptop.data.repository.AllDiscountedProductRepository;
 import com.hcm.sale_laptop.utils.AppUtils;
@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AllDiscountedProductViewModel extends BaseViewModel<AllDiscountedProductRepository> {
 
-    private final MutableLiveData<List<ProductSaleModel>> productSaleModels = new MutableLiveData<>();
+    private final MutableLiveData<List<ProductModel>> productSaleModels = new MutableLiveData<>();
 
     public AllDiscountedProductViewModel() {
         super();
@@ -30,7 +30,7 @@ public class AllDiscountedProductViewModel extends BaseViewModel<AllDiscountedPr
         getDataProductSaleModels();
     }
 
-    public LiveData<List<ProductSaleModel>> getProductSaleModels() {
+    public LiveData<List<ProductModel>> getProductSaleModels() {
         return productSaleModels;
     }
 
@@ -52,7 +52,7 @@ public class AllDiscountedProductViewModel extends BaseViewModel<AllDiscountedPr
             setErrorMessage("Lỗi load danh sách sản phẩm");
         }
 
-        final List<ProductSaleModel> productSaleModels = object != null ? object.getProductModels() : null;
+        final List<ProductModel> productSaleModels = object != null ? object.getProductModels() : null;
         if (!AppUtils.checkListHasData(productSaleModels)) {
             setErrorMessage("Lỗi load danh sách sản phẩm");
             return;

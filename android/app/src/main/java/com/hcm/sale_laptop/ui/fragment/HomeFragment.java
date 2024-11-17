@@ -16,7 +16,6 @@ import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.BannerModel;
 import com.hcm.sale_laptop.data.model.other.BrandModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
-import com.hcm.sale_laptop.data.model.other.ProductSaleModel;
 import com.hcm.sale_laptop.databinding.FragmentHomeBinding;
 import com.hcm.sale_laptop.ui.adapter.BrandAdapter;
 import com.hcm.sale_laptop.ui.adapter.DiscountedProductAdapter;
@@ -158,7 +157,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
         addDetailProductFragment(object);
     }
 
-    private void onClickDiscountedProduct(ProductSaleModel object) {
+    private void onClickDiscountedProduct(ProductModel object) {
         addDetailProductFragment(object);
     }
 

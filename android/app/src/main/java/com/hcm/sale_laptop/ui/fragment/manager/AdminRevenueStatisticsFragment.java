@@ -1,4 +1,4 @@
-package com.hcm.sale_laptop.ui.fragment;
+package com.hcm.sale_laptop.ui.fragment.manager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,16 +10,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
-import com.hcm.sale_laptop.databinding.FragmentChangePasswordBinding;
+import com.hcm.sale_laptop.databinding.FragmentAdminRevenueStatisticsBinding;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
 
-public class AdminChangePasswordFragment extends BaseFragment<BaseViewModel<?>, FragmentChangePasswordBinding> {
+public class AdminRevenueStatisticsFragment extends BaseFragment<BaseViewModel<?>, FragmentAdminRevenueStatisticsBinding> {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentChangePasswordBinding.inflate(inflater, container, false);
+        mBinding = FragmentAdminRevenueStatisticsBinding.inflate(inflater, container, false);
         setup();
         return mBinding.getRoot();
     }
@@ -38,11 +38,6 @@ public class AdminChangePasswordFragment extends BaseFragment<BaseViewModel<?>, 
     @Override
     protected void setupData() {
 
-    }
-
-    @Override
-    protected int getLayoutResourceId() {
-        return mBinding.getRoot().getId();
     }
 
     @Override

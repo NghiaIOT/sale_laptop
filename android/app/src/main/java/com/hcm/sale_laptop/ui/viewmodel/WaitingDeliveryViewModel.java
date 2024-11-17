@@ -3,9 +3,7 @@ package com.hcm.sale_laptop.ui.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hcm.base.BaseResponse;
 import com.hcm.base.BaseViewModel;
-import com.hcm.sale_laptop.data.model.network.request.CancelOrderRequest;
 import com.hcm.sale_laptop.data.model.network.response.OrderResponse;
 import com.hcm.sale_laptop.data.model.other.OrderObject;
 import com.hcm.sale_laptop.data.model.other.OrderStateModel;
@@ -18,22 +16,17 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class OrderViewModel extends BaseViewModel<OrderRepository> {
+public class WaitingDeliveryViewModel extends BaseViewModel<OrderRepository> {
 
     private final MutableLiveData<List<OrderStateModel>> orderData = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> isCancelOrderSuccess = new MutableLiveData<>();
 
-    public OrderViewModel() {
+    public WaitingDeliveryViewModel() {
         super();
         mRepository = new OrderRepository();
     }
 
     public LiveData<List<OrderStateModel>> getOrderData() {
         return orderData;
-    }
-
-    public LiveData<Boolean> getIsCancelOrderSuccess() {
-        return isCancelOrderSuccess;
     }
 
     public void getOrderByUser(String id) {
@@ -44,21 +37,6 @@ public class OrderViewModel extends BaseViewModel<OrderRepository> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handlerOrderResponse, throwable -> setErrorMessage(throwable.getMessage()));
         addDisposable(disposable);
-    }
-
-    public void cancelOrder(CancelOrderRequest request) {
-        final Disposable disposable = mRepository.cancelOrder(request)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(dis -> setLoading(true))
-                .doOnError(error -> setLoading(false))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handlerCancelOrderResponse, throwable -> setErrorMessage(throwable.getMessage()));
-        addDisposable(disposable);
-    }
-
-    private void handlerCancelOrderResponse(BaseResponse<Object> response) {
-        setLoading(false);
-        this.isCancelOrderSuccess.setValue(response.isSuccess());
     }
 
     private void handlerOrderResponse(OrderResponse response) {

@@ -11,11 +11,11 @@ public class ApiError {
 
     @Expose
     @SerializedName("message")
-    private String message;
+    private final String message;
 
     @Expose
     @SerializedName("statusCode")
-    private String statusCode;
+    private final String statusCode;
 
     public ApiError(int errorCode, String statusCode, String message) {
         this.errorCode = errorCode;

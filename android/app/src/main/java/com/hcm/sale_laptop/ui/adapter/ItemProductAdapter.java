@@ -27,7 +27,7 @@ public class ItemProductAdapter extends BaseAdapter<ProductModel, ItemProductBin
     protected void bindData(ProductModel item, ItemProductBinding binding, int position) {
         binding.tvNameProduct.setText(item.getTitle());
         binding.tvPrice.setText(AppUtils.customPrice(item.getPrice()));
-        binding.tvQuantity.setText("" + item.getOrderNumber());
+        binding.tvQuantity.setText("" + item.getQuantity());
         AppUtils.loadImageUrl(binding.imageView, item.getPicture());
     }
 }

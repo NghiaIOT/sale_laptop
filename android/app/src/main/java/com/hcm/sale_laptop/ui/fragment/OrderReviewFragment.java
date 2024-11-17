@@ -8,10 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.hcm.base.BaseFragment;
-import com.hcm.base.BaseViewModel;
+import com.hcm.sale_laptop.data.model.other.OrderStateModel;
+import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentOrderReviewBinding;
+import com.hcm.sale_laptop.ui.adapter.ReviewOrderAdapter;
+import com.hcm.sale_laptop.ui.viewmodel.OrderReviewViewModel;
+import com.hcm.sale_laptop.utils.AppUtils;
 
-public class OrderReviewFragment extends BaseFragment<BaseViewModel<?>, FragmentOrderReviewBinding> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class OrderReviewFragment extends BaseFragment<OrderReviewViewModel, FragmentOrderReviewBinding> implements ReviewOrderAdapter.OnActionReview {
+    private ReviewOrderAdapter.OnActionReview onActionReview;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -22,13 +30,45 @@ public class OrderReviewFragment extends BaseFragment<BaseViewModel<?>, Fragment
         return mBinding.getRoot();
     }
 
+    public void setOnActionReview(ReviewOrderAdapter.OnActionReview onActionReview) {
+        this.onActionReview = onActionReview;
+    }
+
     @Override
     protected void setupUI() {
+        final ReviewOrderAdapter adapter = new ReviewOrderAdapter(
+                new ArrayList<>(), this);
+        mBinding.recyclerView.setAdapter(adapter);
     }
 
     @Override
     protected void setupAction() {
-//        setOnClickListener(mBinding.btnBackArrow, view -> onBack());
+
+        mViewModel = new OrderReviewViewModel();
+
+        mViewModel.getReview();
+
+        mViewModel.errorMessage.observe(this, this::showToast);
+
+        mViewModel.isLoading.observe(this, isLoading -> {
+            if (isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
+
+        mViewModel.getDataReview().observe(this, orderStateModels -> {
+            final ReviewOrderAdapter adapter = (ReviewOrderAdapter) mBinding.recyclerView.getAdapter();
+
+            if (adapter != null && AppUtils.checkListHasData(orderStateModels)) {
+                final List<ProductModel> list = new ArrayList<>();
+                for (OrderStateModel model : orderStateModels) {
+                    list.addAll(model.getProducts());
+                }
+                adapter.setItems(list);
+            }
+        });
     }
 
     @Override
@@ -46,4 +86,17 @@ public class OrderReviewFragment extends BaseFragment<BaseViewModel<?>, Fragment
         super.onDestroyView();
     }
 
+    @Override
+    public void repurchase(ProductModel model) {
+        if (onActionReview != null) {
+            onActionReview.repurchase(model);
+        }
+    }
+
+    @Override
+    public void orderReview(ProductModel model) {
+        if (onActionReview != null) {
+            onActionReview.orderReview(model);
+        }
+    }
 }

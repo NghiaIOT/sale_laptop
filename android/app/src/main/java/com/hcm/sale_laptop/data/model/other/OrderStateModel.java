@@ -9,13 +9,17 @@ public class OrderStateModel {
     private String review;
     private int is_deleted;
     private String id;
-    private int status;
+    private String status;
     private String summary;
     private int prices_order;
     private int sales_order;
     private List<ProductModel> products;
+    private boolean isSelect;
+    private int position;
 
-    public OrderStateModel(String name, String avatar, String address, String review, int is_deleted, String id, int status, String summary, int prices_order, int sales_order, List<ProductModel> products) {
+    public OrderStateModel(String name, String avatar, String address, String review, int is_deleted,
+                           String id, String status, String summary, int prices_order, int sales_order,
+                           List<ProductModel> products, boolean isSelect) {
         this.name = name;
         this.avatar = avatar;
         this.address = address;
@@ -27,6 +31,23 @@ public class OrderStateModel {
         this.prices_order = prices_order;
         this.sales_order = sales_order;
         this.products = products;
+        this.isSelect = isSelect;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        this.isSelect = select;
     }
 
     public String getName() {
@@ -77,11 +98,11 @@ public class OrderStateModel {
         this.id = id;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

@@ -17,7 +17,6 @@ import com.hcm.sale_laptop.data.model.other.BrandModel;
 import com.hcm.sale_laptop.data.model.other.CategoryModel;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.data.model.other.ProductObject;
-import com.hcm.sale_laptop.data.model.other.ProductSaleModel;
 import com.hcm.sale_laptop.data.model.other.ProductSaleObject;
 import com.hcm.sale_laptop.data.repository.HomeRepository;
 import com.hcm.sale_laptop.utils.AppUtils;
@@ -33,7 +32,7 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
     private final MutableLiveData<List<BrandModel>> brandModels = new MutableLiveData<>();
     private final MutableLiveData<List<ProductModel>> productModels = new MutableLiveData<>();
     private final MutableLiveData<List<BannerModel>> bannerModels = new MutableLiveData<>();
-    private final MutableLiveData<List<ProductSaleModel>> productSaleModels = new MutableLiveData<>();
+    private final MutableLiveData<List<ProductModel>> productSaleModels = new MutableLiveData<>();
 
     public HomeFragmentViewModel(@NonNull Application application) {
         super(application);
@@ -52,7 +51,7 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
         return brandModels;
     }
 
-    public LiveData<List<ProductSaleModel>> getProductSaleModels() {
+    public LiveData<List<ProductModel>> getProductSaleModels() {
         return productSaleModels;
     }
 
@@ -114,7 +113,7 @@ public class HomeFragmentViewModel extends BaseViewModel<HomeRepository> {
             setErrorMessage("Lỗi load danh sách sản phẩm");
         }
 
-        final List<ProductSaleModel> productSaleModels = object != null ? object.getProductModels() : null;
+        final List<ProductModel> productSaleModels = object != null ? object.getProductModels() : null;
         if (!AppUtils.checkListHasData(productSaleModels)) {
             setErrorMessage("Lỗi load danh sách sản phẩm");
             return;

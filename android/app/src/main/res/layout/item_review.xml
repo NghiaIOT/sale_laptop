@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/dp_8"
+    android:layout_marginBottom="@dimen/dp_16"
     android:background="#F9F9CE"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:paddingStart="10dp"
+    android:paddingTop="@dimen/dp_5"
+    android:paddingEnd="10dp">
 
     <ImageView
+        android:id="@+id/image_view"
         android:layout_width="104dp"
         android:layout_height="86dp"
         android:padding="5dp"
@@ -22,23 +25,14 @@
         android:layout_marginStart="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txt_order_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mã đơn hàng : " />
-
-            <TextView
-                android:id="@+id/tvMaDonHang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="12345" />
-
-        </LinearLayout>
+            android:text="@string/orders_sold"
+            android:textColor="@color/black55"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvNameProduct"
@@ -80,26 +74,35 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/dp_26"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginBottom="@dimen/dp_8">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thời gian :"
-                android:textColor="@color/black55"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_review"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/round_button_review_order"
+                android:text="Đánh giá"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvNgay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="17/11/2024"
-                android:textColor="@color/black55"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_re_order"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_toEndOf="@id/btn_review"
+                android:background="@drawable/round_button_review_order"
+                android:text="Mua lại"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

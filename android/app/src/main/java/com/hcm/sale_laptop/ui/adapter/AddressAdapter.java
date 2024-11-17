@@ -44,7 +44,7 @@ public class AddressAdapter extends BaseAdapter<AddressModel, ItemAddressBinding
             item.setSelect(binding.checkbox.isChecked());
 
             binding.getRoot().post(this::notifyDataSetChanged);
-            OnItemClick<AddressModel> onItemClick = getListener();
+            final OnItemClick<AddressModel> onItemClick = getListener();
             if (onItemClick != null) {
                 onItemClick.onClick(item);
             }
