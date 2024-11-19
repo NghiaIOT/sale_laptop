@@ -50,7 +50,7 @@ public interface ApiService {
     Single<BaseResponse<Object>> order(@Body OrderRequest request);
 
     @GET(EndPoint.ORDERS_ALL)
-    Single<OrderResponse> getOrderData();
+    Single<OrderResponse> getOrderAll();
 
     @GET(EndPoint.ORDERS_BY_USER)
     Single<OrderResponse> getOrderByUser(@Query("user_id") String id);
@@ -63,4 +63,7 @@ public interface ApiService {
 
     @GET(EndPoint.ORDERS_REVIEW)
     Single<OrderResponse> getDataReview();
+
+    @GET(EndPoint.ORDERS_CANCEL)
+    Single<OrderResponse> getDataOrdersCancel();
 }

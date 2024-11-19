@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class ProductModel implements Parcelable, Cloneable {
+
     public static final Creator<ProductModel> CREATOR = new Creator<ProductModel>() {
         @Override
         public ProductModel createFromParcel(Parcel in) {

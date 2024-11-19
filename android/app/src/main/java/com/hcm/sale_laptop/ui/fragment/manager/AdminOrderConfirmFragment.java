@@ -8,14 +8,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.hcm.base.BaseFragment;
-import com.hcm.base.BaseViewModel;
-import com.hcm.sale_laptop.data.model.other.ProductModel;
+import com.hcm.base.OnItemClick;
+import com.hcm.sale_laptop.data.enums.OrderStatus;
+import com.hcm.sale_laptop.data.model.other.OrderStateModel;
 import com.hcm.sale_laptop.databinding.FragmentAdminOrderConfirmBinding;
-import com.hcm.sale_laptop.ui.adapter.AdminConfirmOderAdapter;
+import com.hcm.sale_laptop.ui.adapter.OrderStateAdapter;
+import com.hcm.sale_laptop.ui.viewmodel.AdminConfirmOrderViewModel;
+import com.hcm.sale_laptop.utils.AppUtils;
 
 import java.util.ArrayList;
 
-public class AdminOrderConfirmFragment extends BaseFragment<BaseViewModel<?>, FragmentAdminOrderConfirmBinding> {
+public class AdminOrderConfirmFragment extends BaseFragment<AdminConfirmOrderViewModel, FragmentAdminOrderConfirmBinding> implements OnItemClick<OrderStateModel> {
+
+    private OrderStateModel orderStateModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -28,27 +33,62 @@ public class AdminOrderConfirmFragment extends BaseFragment<BaseViewModel<?>, Fr
 
     @Override
     protected void setupUI() {
-        final ArrayList<ProductModel> arrayList = new ArrayList<>();
-        final ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by", 54, 454);
-        arrayList.add(model);
-        arrayList.add(model);
+        final OrderStateAdapter adapter = new OrderStateAdapter(new ArrayList<>(), this, OrderStatus.PENDING_CONFIRMATION, false);
+        mBinding.recyclerView.setAdapter(adapter);
 
-        final AdminConfirmOderAdapter confirmOderAdapter = new AdminConfirmOderAdapter(arrayList, this::onClickDiscountedProduct);
-        mBinding.recyclerView.setAdapter(confirmOderAdapter);
-        confirmOderAdapter.setItems(arrayList);
     }
 
     @Override
     protected void setupAction() {
+        setOnClickListener(mBinding.btnConfirmOrder, view -> {
+            if (orderStateModel == null) {
+                showToast("Bạn chưa chọn đơn hàng nào để xác nhận");
+                return;
+            }
 
+        });
     }
 
-    private void onClickDiscountedProduct(ProductModel object) {
-
-    }
 
     @Override
     protected void setupData() {
+        mViewModel = new AdminConfirmOrderViewModel();
 
+        mViewModel.getOrderAll();
+
+        mViewModel.errorMessage.observe(this, this::showToast);
+
+        mViewModel.isLoading.observe(this, isLoading -> {
+            if (isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
+
+        mViewModel.getOrderData().observe(this, orderStateModels -> {
+            final OrderStateAdapter adapter = (OrderStateAdapter) mBinding.recyclerView.getAdapter();
+            if (adapter != null && AppUtils.checkListHasData(orderStateModels)) {
+                adapter.setItems(orderStateModels);
+            }
+        });
+
+        mViewModel.getIsConfirmOrderSuccess().observe(this, isSuccess -> {
+            if (isSuccess) {
+                final OrderStateAdapter adapter = (OrderStateAdapter) mBinding.recyclerView.getAdapter();
+                if (adapter != null) {
+                    adapter.handlerRemoveItem(orderStateModel.getPosition());
+                    orderStateModel = null;
+                }
+                showToast("Xác nhận đơn hàng thành công");
+            } else {
+                showToast("Xác nhận đơn hàng thất bại");
+            }
+        });
+    }
+
+    @Override
+    public void onClick(OrderStateModel model) {
+        this.orderStateModel = model.isSelect() ? model : null;
     }
 }

@@ -30,4 +30,12 @@ public class OrderRepository extends BaseRepository {
     public Single<OrderResponse> getDataReview() {
         return applySingle(apiService.getDataReview());
     }
+
+    public Single<OrderResponse> getOrderAll() {
+        return applySingle(apiService.getOrderAll());
+    }
+
+    public Single<OrderResponse> getDataOrdersCancel() {
+        return applySingle(apiService.getDataOrdersCancel());
+    }
 }

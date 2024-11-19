@@ -12,4 +12,5 @@ public final class EndPoint {
     public static final String ORDERS_ALL = "/orders/all";
     public static final String ORDERS_BY_USER = "/orders";
     public static final String ORDERS_REVIEW = "/orders/review";
+    public static final String ORDERS_CANCEL = "/orders/detroy";
 }

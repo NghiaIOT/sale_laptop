@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.hcm.base.BaseFragment;
-import com.hcm.base.BaseViewModel;
-import com.hcm.sale_laptop.data.model.other.ProductModel;
+import com.hcm.sale_laptop.data.model.other.OrderStateModel;
 import com.hcm.sale_laptop.databinding.FragmentAdminRequestCancelOrderBinding;
-import com.hcm.sale_laptop.ui.adapter.AdminCancelOderAdapter;
+import com.hcm.sale_laptop.ui.adapter.OrderStateAdapter;
+import com.hcm.sale_laptop.ui.adapter.RequestCancelOrderAdapter;
+import com.hcm.sale_laptop.ui.viewmodel.AdminRequestCancelOrderViewModel;
+import com.hcm.sale_laptop.utils.AppUtils;
 
 import java.util.ArrayList;
 
-public class AdminRequestCancelOrderFragment extends BaseFragment<BaseViewModel<?>, FragmentAdminRequestCancelOrderBinding> {
+public class AdminRequestCancelOrderFragment extends BaseFragment<AdminRequestCancelOrderViewModel, FragmentAdminRequestCancelOrderBinding> {
+
+    private OrderStateModel orderStateModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -28,14 +32,8 @@ public class AdminRequestCancelOrderFragment extends BaseFragment<BaseViewModel<
 
     @Override
     protected void setupUI() {
-        final ArrayList<ProductModel> arrayList = new ArrayList<>();
-        final ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by", 43, 54);
-        arrayList.add(model);
-        arrayList.add(model);
-
-        final AdminCancelOderAdapter confirmOderAdapter = new AdminCancelOderAdapter(arrayList, this::onClickDiscountedProduct);
-        mBinding.recyclerView.setAdapter(confirmOderAdapter);
-        confirmOderAdapter.setItems(arrayList);
+        final RequestCancelOrderAdapter adapter = new RequestCancelOrderAdapter(new ArrayList<>(), null);
+        mBinding.recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -43,12 +41,40 @@ public class AdminRequestCancelOrderFragment extends BaseFragment<BaseViewModel<
 
     }
 
-    private void onClickDiscountedProduct(ProductModel object) {
-
-    }
-
     @Override
     protected void setupData() {
+        mViewModel = new AdminRequestCancelOrderViewModel();
 
+        mViewModel.getDataOrdersCancel();
+
+        mViewModel.errorMessage.observe(this, this::showToast);
+
+        mViewModel.isLoading.observe(this, isLoading -> {
+            if (isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
+
+        mViewModel.getOrderData().observe(this, orderStateModels -> {
+            final OrderStateAdapter adapter = (OrderStateAdapter) mBinding.recyclerView.getAdapter();
+            if (adapter != null && AppUtils.checkListHasData(orderStateModels)) {
+                adapter.setItems(orderStateModels);
+            }
+        });
+
+        mViewModel.getIsConfirmOrderSuccess().observe(this, isSuccess -> {
+            if (isSuccess) {
+                final OrderStateAdapter adapter = (OrderStateAdapter) mBinding.recyclerView.getAdapter();
+                if (adapter != null) {
+                    adapter.handlerRemoveItem(orderStateModel.getPosition());
+                    orderStateModel = null;
+                }
+                showToast("Xác nhận đơn hàng thành công");
+            } else {
+                showToast("Xác nhận đơn hàng thất bại");
+            }
+        });
     }
 }
