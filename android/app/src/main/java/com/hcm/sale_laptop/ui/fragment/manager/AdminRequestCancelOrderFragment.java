@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import com.hcm.base.BaseFragment;
 import com.hcm.sale_laptop.data.model.other.OrderStateModel;
 import com.hcm.sale_laptop.databinding.FragmentAdminRequestCancelOrderBinding;
-import com.hcm.sale_laptop.ui.adapter.OrderStateAdapter;
 import com.hcm.sale_laptop.ui.adapter.RequestCancelOrderAdapter;
 import com.hcm.sale_laptop.ui.viewmodel.AdminRequestCancelOrderViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
@@ -58,7 +57,7 @@ public class AdminRequestCancelOrderFragment extends BaseFragment<AdminRequestCa
         });
 
         mViewModel.getOrderData().observe(this, orderStateModels -> {
-            final OrderStateAdapter adapter = (OrderStateAdapter) mBinding.recyclerView.getAdapter();
+            final RequestCancelOrderAdapter adapter = (RequestCancelOrderAdapter) mBinding.recyclerView.getAdapter();
             if (adapter != null && AppUtils.checkListHasData(orderStateModels)) {
                 adapter.setItems(orderStateModels);
             }
@@ -66,14 +65,14 @@ public class AdminRequestCancelOrderFragment extends BaseFragment<AdminRequestCa
 
         mViewModel.getIsConfirmOrderSuccess().observe(this, isSuccess -> {
             if (isSuccess) {
-                final OrderStateAdapter adapter = (OrderStateAdapter) mBinding.recyclerView.getAdapter();
+                final RequestCancelOrderAdapter adapter = (RequestCancelOrderAdapter) mBinding.recyclerView.getAdapter();
                 if (adapter != null) {
                     adapter.handlerRemoveItem(orderStateModel.getPosition());
                     orderStateModel = null;
                 }
-                showToast("Xác nhận đơn hàng thành công");
+                showToast("Hủy đơn hàng thành công");
             } else {
-                showToast("Xác nhận đơn hàng thất bại");
+                showToast("Hủy đơn hàng thất bại");
             }
         });
     }
