@@ -1,21 +1,25 @@
 package com.hcm.sale_laptop.ui.fragment.manager;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.api.ApiService;
 import com.hcm.sale_laptop.data.api.RetrofitClient;
 import com.hcm.sale_laptop.data.model.other.OrderSoldModel;
 import com.hcm.sale_laptop.ui.adapter.AdminOrderSoldAdapter;
-import com.hcm.sale_laptop.R;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

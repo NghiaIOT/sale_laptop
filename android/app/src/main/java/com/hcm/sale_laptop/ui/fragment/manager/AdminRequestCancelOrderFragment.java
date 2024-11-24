@@ -13,16 +13,13 @@ import com.hcm.sale_laptop.data.api.ApiService;
 import com.hcm.sale_laptop.data.api.RetrofitClient;
 import com.hcm.sale_laptop.data.model.other.OrderStateModel;
 import com.hcm.sale_laptop.databinding.FragmentAdminRequestCancelOrderBinding;
-import com.hcm.sale_laptop.ui.activity.MainActivity;
 import com.hcm.sale_laptop.ui.adapter.RequestCancelOrderAdapter;
 import com.hcm.sale_laptop.ui.viewmodel.AdminRequestCancelOrderViewModel;
 import com.hcm.sale_laptop.utils.AppUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -55,7 +52,7 @@ public class AdminRequestCancelOrderFragment extends BaseFragment<AdminRequestCa
                     final RequestCancelOrderAdapter adapter = new RequestCancelOrderAdapter(orders, null);
                     mBinding.recyclerView.setAdapter(adapter);
                 } else {
-                        Toast.makeText(getActivity(), "Failed to fetch orders", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Failed to fetch orders", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -15,7 +15,7 @@ import com.hcm.sale_laptop.ui.adapter.AdminRateAdapter;
 
 import java.util.ArrayList;
 
-public class    AdminSeeReviewFragment extends BaseFragment<BaseViewModel<?>, FragmentAdminSeeReviewBinding> {
+public class AdminSeeReviewFragment extends BaseFragment<BaseViewModel<?>, FragmentAdminSeeReviewBinding> {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

@@ -5,15 +5,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.OrderSoldModel;
 
 import java.util.List;
 
 public class AdminOrderSoldAdapter extends RecyclerView.Adapter<AdminOrderSoldAdapter.OrderViewHolder> {
-    private List<OrderSoldModel> orderList;
+    private final List<OrderSoldModel> orderList;
 
     public AdminOrderSoldAdapter(List<OrderSoldModel> orderList) {
         this.orderList = orderList;
