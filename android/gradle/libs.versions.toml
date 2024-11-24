@@ -23,6 +23,9 @@ activity = "1.9.2"
 loggingInterceptor = "5.0.0-alpha.14"
 viewbinding = "8.7.1"
 timber = "5.0.1"
+volley = "1.2.1"
+volleyVersion = "1.2.1"
+
 
 [libraries]
 dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }

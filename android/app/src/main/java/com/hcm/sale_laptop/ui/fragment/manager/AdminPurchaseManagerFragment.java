@@ -38,7 +38,7 @@ public class AdminPurchaseManagerFragment extends BaseFragment<BaseViewModel<?>,
         final List<Fragment> fragments = new ArrayList<>();
         fragments.add(new AdminOrderConfirmFragment());
         fragments.add(new AdminRequestCancelOrderFragment());
-        fragments.add(new AdminSeeReviewFragment());
+        fragments.add(new AdminReviewListFragment());
 
         final ViewPagerStateAdapter viewPagerStateAdapter = new ViewPagerStateAdapter(this, fragments);
         mBinding.viewPager.setAdapter(viewPagerStateAdapter);
