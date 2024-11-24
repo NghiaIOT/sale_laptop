@@ -11,8 +11,13 @@ import com.hcm.sale_laptop.data.model.network.response.OrderResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductResponse;
 import com.hcm.sale_laptop.data.model.network.response.ProductSaleResponse;
 import com.hcm.sale_laptop.data.model.network.response.SignupResponse;
+import com.hcm.sale_laptop.data.model.other.OrderSoldModel;
+import com.hcm.sale_laptop.data.model.other.OrderStateModel;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -66,4 +71,10 @@ public interface ApiService {
 
     @GET(EndPoint.ORDERS_CANCEL)
     Single<OrderResponse> getDataOrdersCancel();
+
+    @GET("orders/detroy")
+    Call<List<OrderStateModel>> getRequestOrders();
+
+    @GET("orders/sold")
+    Call<List<OrderSoldModel>> getOrdersSold();
 }

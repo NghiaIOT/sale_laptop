@@ -13,6 +13,7 @@
         android:layout_width="104dp"
         android:layout_height="86dp"
         android:padding="5dp"
+        android:id="@+id/orderImage"
         android:src="@drawable/change_pass_avatar"
         tools:ignore="ContentDescription" />
 
