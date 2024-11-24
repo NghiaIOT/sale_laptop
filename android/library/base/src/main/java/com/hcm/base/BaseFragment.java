@@ -26,7 +26,9 @@ public abstract class BaseFragment<V extends BaseViewModel<?>, B extends ViewBin
 
     protected abstract void setupAction();
 
-    protected abstract void setupData();
+    protected abstract void setupData(
+
+    );
 
     protected void setup() {
         setupUI();
