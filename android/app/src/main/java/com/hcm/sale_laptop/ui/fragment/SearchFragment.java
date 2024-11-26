@@ -47,7 +47,7 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
 
     @Override
     protected void setupUI() {
-        hideOrShowBottomNavi(false);
+        hideOrShowBottomNavi();
         setupRVSearchHistory();
         setupRVSuggestProduct();
         setupEditTextSearch();
@@ -209,7 +209,6 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        hideOrShowBottomNavi(true);
 
         if (!AppUtils.checkListHasData(keywords)) {
             return;
@@ -225,8 +224,8 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
         shared.saveListObject(KeyPref.KEY_SEARCH_HISTORY, this.keywords);
     }
 
-    private void hideOrShowBottomNavi(boolean isShow) {
+    private void hideOrShowBottomNavi() {
         final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
-        mainViewModel.setBottomNavVisibility(isShow);
+        mainViewModel.setBottomNavVisibility(false);
     }
 }

@@ -84,7 +84,7 @@
             android:layout_marginBottom="@dimen/dp_6"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/see_all"
+            android:text="Giá rẻ"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/sp_14"

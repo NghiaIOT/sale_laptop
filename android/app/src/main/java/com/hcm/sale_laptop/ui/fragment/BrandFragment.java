@@ -49,7 +49,7 @@ public class BrandFragment extends BaseFragment<BrandViewModel, FragmentBrandBin
 
     @Override
     protected void setupUI() {
-        hideOrShowBottomNavi(false);
+        hideOrShowBottomNavi();
         mBinding.txtHeader.setText(brandModel.getName());
         final PopularProductAdapter adapter = new PopularProductAdapter(
                 new ArrayList<>(), this::onClickProduct);
@@ -117,11 +117,10 @@ public class BrandFragment extends BaseFragment<BrandViewModel, FragmentBrandBin
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        hideOrShowBottomNavi(true);
     }
 
-    private void hideOrShowBottomNavi(boolean isShow) {
+    private void hideOrShowBottomNavi() {
         final MainActivityViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
-        mainViewModel.setBottomNavVisibility(isShow);
+        mainViewModel.setBottomNavVisibility(false);
     }
 }
