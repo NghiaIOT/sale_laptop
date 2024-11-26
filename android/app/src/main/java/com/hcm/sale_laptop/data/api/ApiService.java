@@ -13,6 +13,8 @@ import com.hcm.sale_laptop.data.model.network.response.ProductSaleResponse;
 import com.hcm.sale_laptop.data.model.network.response.SignupResponse;
 import com.hcm.sale_laptop.data.model.other.OrderSoldModel;
 import com.hcm.sale_laptop.data.model.other.OrderStateModel;
+import com.hcm.sale_laptop.data.model.other.PasswordRequestModel;
+import com.hcm.sale_laptop.data.model.other.ReviewModel;
 
 import java.util.List;
 
@@ -77,4 +79,11 @@ public interface ApiService {
 
     @GET("orders/sold")
     Call<List<OrderSoldModel>> getOrdersSold();
+
+    @GET("reviews")
+    Call<List<ReviewModel>> getReview();
+
+    @POST("/api/password")
+    Call<Void> sendPassword(@Body PasswordRequestModel passwordRequestModel);
+
 }
