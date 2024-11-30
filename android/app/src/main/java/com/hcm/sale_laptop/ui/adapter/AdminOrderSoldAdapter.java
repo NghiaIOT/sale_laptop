@@ -2,13 +2,13 @@ package com.hcm.sale_laptop.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.hcm.sale_laptop.data.model.other.ProductModel;
-
-import java.util.List;
 
 import com.hcm.base.BaseAdapter;
 import com.hcm.base.OnItemClick;
+import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.ItemOrderSoldBinding;
+
+import java.util.List;
 
 public class AdminOrderSoldAdapter extends BaseAdapter<ProductModel, ItemOrderSoldBinding> {
 

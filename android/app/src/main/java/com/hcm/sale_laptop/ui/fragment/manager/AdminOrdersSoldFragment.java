@@ -14,7 +14,6 @@ import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentOrderSouldsBinding;
 import com.hcm.sale_laptop.ui.adapter.AdminOrderSoldAdapter;
 
-
 import java.util.ArrayList;
 
 /**
