@@ -4,70 +4,58 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.hcm.sale_laptop.R;
-import com.hcm.sale_laptop.data.api.ApiService;
-import com.hcm.sale_laptop.data.api.RetrofitClient;
-import com.hcm.sale_laptop.data.model.other.OrderSoldModel;
+import com.hcm.base.BaseFragment;
+import com.hcm.base.BaseViewModel;
+import com.hcm.sale_laptop.data.model.other.ProductModel;
+import com.hcm.sale_laptop.databinding.FragmentOrderSouldsBinding;
 import com.hcm.sale_laptop.ui.adapter.AdminOrderSoldAdapter;
 
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.util.ArrayList;
 
-public class AdminOrdersSoldFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private AdminOrderSoldAdapter adminOrderSoldAdapter;
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link AdminOrdersSoldFragment} factory method to
+ * create an instance of this fragment.
+ */
+public class AdminOrdersSoldFragment extends BaseFragment<BaseViewModel<?>, FragmentOrderSouldsBinding> {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order_soulds, container, false);
-
-        recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        fetchOrders();
-
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mBinding = FragmentOrderSouldsBinding.inflate(inflater, container, false);
+        setup();
+        return mBinding.getRoot();
     }
 
-    private void fetchOrders() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitClient.BASE_URL + "/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    @Override
+    protected void setupUI() {
+        final ArrayList<ProductModel> arrayList = new ArrayList<>();
+        final ProductModel model = new ProductModel("id", "category_id", "title", "slug", "picture", "summary", "description", 100, "created_by", 43, 45);
+        arrayList.add(model);
+        arrayList.add(model);
 
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<OrderSoldModel>> call = apiService.getOrdersSold();
+        final AdminOrderSoldAdapter confirmOderAdapter = new AdminOrderSoldAdapter(arrayList, this::onClickDiscountedProduct);
+        mBinding.recyclerView.setAdapter(confirmOderAdapter);
+        confirmOderAdapter.setItems(arrayList);
+    }
 
-        call.enqueue(new Callback<List<OrderSoldModel>>() {
-            @Override
-            public void onResponse(Call<List<OrderSoldModel>> call, Response<List<OrderSoldModel>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<OrderSoldModel> orders = response.body();
-                    adminOrderSoldAdapter = new AdminOrderSoldAdapter(orders);
-                    recyclerView.setAdapter(adminOrderSoldAdapter);
-                } else {
-                    Toast.makeText(getContext(), "Không tải được dữ liệu", Toast.LENGTH_SHORT).show();
-                }
-            }
+    @Override
+    protected void setupAction() {
 
-            @Override
-            public void onFailure(Call<List<OrderSoldModel>> call, Throwable t) {
-                Toast.makeText(getContext(), "Lỗi API: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
+
+    private void onClickDiscountedProduct(ProductModel object) {
+
+    }
+
+    @Override
+    protected void setupData() {
+
     }
 }
