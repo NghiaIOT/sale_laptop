@@ -69,6 +69,7 @@ public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, Fragmen
     @Override
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
+
         setOnClickListener(mBinding.btnPay, view -> {
             if (AppUtils.checkListHasData(CartManager.getOrderList())) {
                 final PaymentsFragment fragment = new PaymentsFragment();
@@ -80,6 +81,7 @@ public class ShoppingCartFragment extends BaseFragment<BaseViewModel<?>, Fragmen
                 showToast("Giỏ hàng đang trống, không thể tiến hành thanh toán");
             }
         });
+
         setOnClickListener(mBinding.btnRemoveCart, view -> {
             if (!AppUtils.checkListHasData(listProductId)) {
                 showToast("Bạn chưa chọn sản phẩm nào để xóa khỏi giỏ hàng");

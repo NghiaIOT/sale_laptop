@@ -39,7 +39,6 @@ public class AdminAccountFragment extends BaseFragment<BaseViewModel<?>, Fragmen
 
     @Override
     protected void setupAction() {
-
         setOnClickListener(mBinding.cvChangePassword, view -> {
             addFragment(new ChangePasswordFragment(), R.id.fragment_container, true);
 

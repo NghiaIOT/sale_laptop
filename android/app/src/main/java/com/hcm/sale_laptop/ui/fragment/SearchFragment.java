@@ -193,11 +193,7 @@ public class SearchFragment extends BaseFragment<SearchViewModel, FragmentSearch
 
     private void setHideOrShowUI(boolean isShow) {
         for (View view : getListUI()) {
-            if (isShow) {
-                view.setVisibility(View.VISIBLE);
-            } else {
-                view.setVisibility(View.GONE);
-            }
+            view.setVisibility(isShow ? View.VISIBLE : View.GONE);
         }
     }
 

@@ -64,13 +64,14 @@ public class PaymentsFragment extends BaseFragment<PaymentsViewModel, FragmentPa
         }.getType();
 
         final SharedPrefManager shared = SharedPrefManager.getInstance(requireContext());
-        List<AddressModel> addressModels = shared.getListObject(KeyPref.KEY_ADDRESS, type);
-        if (AppUtils.checkListHasData(addressModels)) {
-            for (AddressModel model : addressModels) {
-                if (model.isSelect()) {
-                    setTextAddress(model);
-                    break;
-                }
+        final List<AddressModel> addressModels = shared.getListObject(KeyPref.KEY_ADDRESS, type);
+        if (!AppUtils.checkListHasData(addressModels)) {
+            return;
+        }
+        for (AddressModel model : addressModels) {
+            if (model.isSelect()) {
+                setTextAddress(model);
+                break;
             }
         }
     }
@@ -94,6 +95,7 @@ public class PaymentsFragment extends BaseFragment<PaymentsViewModel, FragmentPa
     @Override
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
+
         setOnClickListener(mBinding.btnPayment, view -> {
             final String address = mBinding.txtAddress.getText().toString();
             if (address.isEmpty()) {
@@ -124,7 +126,7 @@ public class PaymentsFragment extends BaseFragment<PaymentsViewModel, FragmentPa
             final OrderRequest request = new OrderRequest();
 
             for (ProductModel model : CartManager.getOrderList()) {
-                ProductOrderModel product = new ProductOrderModel(model.getId(), (int) model.getOrderNumber());
+                final ProductOrderModel product = new ProductOrderModel(model.getId(), (int) model.getOrderNumber());
                 list.add(product);
             }
             request.setAddress(mBinding.txtAddress.getText().toString().trim());

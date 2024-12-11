@@ -37,9 +37,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
     @Override
     protected void bindData(ProductModel model, ItemCartBinding binding, int position) {
         binding.checkbox.setChecked(false);
-        if (!isEdit) {
-            binding.checkbox.setVisibility(View.GONE);
-        }
+
         AppUtils.loadImageUrl(binding.imageView, model.getPicture());
 
         if (model.getTotalAmount() == 0) {
@@ -59,6 +57,8 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
         // action
         if (isEdit) {
             handlerAction(binding, position, model);
+        } else {
+            binding.checkbox.setVisibility(View.GONE);
         }
     }
 
@@ -83,7 +83,7 @@ public class ShoppingCartAdapter extends BaseAdapter<ProductModel, ItemCartBindi
     }
 
     private void reloadPrice(ProductModel model, int position) {
-        float newPrice = model.getPrice() * model.getOrderNumber();
+        final float newPrice = model.getPrice() * model.getOrderNumber();
         model.setTotalAmount(newPrice);
         double totalAmount = 0;
 

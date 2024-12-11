@@ -13,6 +13,7 @@ import com.hcm.sale_laptop.utils.AppUtils;
 import java.util.List;
 
 public class ItemProductAdapter extends BaseAdapter<ProductModel, ItemProductBinding> {
+
     public ItemProductAdapter(List<ProductModel> itemList, OnItemClick<ProductModel> listener) {
         super(itemList, listener);
     }

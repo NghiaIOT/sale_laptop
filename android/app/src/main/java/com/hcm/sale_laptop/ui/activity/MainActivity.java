@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity<MainActivityViewModel, ActivityMa
     protected void setupData() {
         mViewModel = new ViewModelProvider(this, new MainActivityViewModelFactory(getApplication()))
                 .get(MainActivityViewModel.class);
+
         mViewModel.isBottomNavVisible().observe(this, isVisible -> {
             if (isVisible) {
                 mBinding.bottomNavigation.setVisibility(View.VISIBLE);
@@ -70,6 +71,7 @@ public class MainActivity extends BaseActivity<MainActivityViewModel, ActivityMa
                 mBinding.bottomNavigation.setVisibility(View.GONE);
             }
         });
+
     }
 
     // Phương thức để load fragment

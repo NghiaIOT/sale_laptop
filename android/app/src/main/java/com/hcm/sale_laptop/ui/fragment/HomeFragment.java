@@ -89,6 +89,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentViewModel, FragmentHo
     @Override
     protected void setupAction() {
         setOnClickListener(mBinding.txtSeeAll, view -> addFragment(new AllDiscountedProductFragment(), R.id.fragment_container, true));
+
         setOnClickListener(mBinding.btnShoppingCart, view -> {
             final List<ProductModel> list = CartManager.getOrderList();
             if (AppUtils.checkListHasData(list)) {

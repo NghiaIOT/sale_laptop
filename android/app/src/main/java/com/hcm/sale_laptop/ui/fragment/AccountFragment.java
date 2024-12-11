@@ -46,10 +46,12 @@ public class AccountFragment extends BaseFragment<BaseViewModel<?>, FragmentAcco
             addFragment(new ChangePasswordFragment(), R.id.fragment_container, true);
 
         });
+
         setOnClickListener(mBinding.cvOrderCancelled, view -> {
             addFragment(new OrderCancelledFragment(), R.id.fragment_container, true);
 
         });
+
         setOnClickListener(mBinding.cvLogOut, view -> {
             BaseActivity<BaseViewModel<?>, ?> baseActivity = getBaseActivity();
             if (baseActivity == null) {

@@ -61,7 +61,7 @@ public class WaitDeliveryFragment extends BaseFragment<WaitingDeliveryViewModel,
         mViewModel.getOrderData().observe(this, orderStateModels -> {
             final OrderStateAdapter adapter = (OrderStateAdapter) mBinding.recyclerView.getAdapter();
             if (adapter != null && AppUtils.checkListHasData(orderStateModels)) {
-                List<OrderStateModel> list = orderStateModels
+                final List<OrderStateModel> list = orderStateModels
                         .stream()
                         .filter(model -> model.getIs_deleted() == 0)
                         .collect(Collectors.toList());

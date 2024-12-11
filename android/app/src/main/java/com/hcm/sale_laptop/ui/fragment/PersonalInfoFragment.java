@@ -10,8 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.hcm.base.BaseFragment;
 import com.hcm.base.BaseViewModel;
+import com.hcm.sale_laptop.data.model.other.UserModel;
 import com.hcm.sale_laptop.databinding.FragmentPersonalInformationBinding;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
+import com.hcm.sale_laptop.utils.Constants;
 
 public class PersonalInfoFragment extends BaseFragment<BaseViewModel<?>, FragmentPersonalInformationBinding> {
 
@@ -27,7 +29,12 @@ public class PersonalInfoFragment extends BaseFragment<BaseViewModel<?>, Fragmen
     @Override
     protected void setupUI() {
         hideOrShowBottomNavi(false);
+        final UserModel user = Constants.getUserModel();
 
+        mBinding.edtAccountName.setText(user.getName());
+        mBinding.edtPhoneNumber.setText(user.getPhoneNumber());
+        mBinding.edtGender.setText(user.getBio());
+        mBinding.edtDateOfBirth.setText(user.getCreated_at());
     }
 
     @Override

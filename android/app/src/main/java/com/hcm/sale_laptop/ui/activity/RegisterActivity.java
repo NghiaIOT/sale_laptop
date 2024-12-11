@@ -61,20 +61,25 @@ public class RegisterActivity extends BaseActivity<RegisterActivityViewModel, Ac
             request.setPassword(password);
             mViewModel.registerUser(request);
         });
+
     }
 
     @Override
     protected void setupData() {
         mViewModel = new ViewModelProvider(this, new RegisterActivityViewModelFactory(getApplication()))
                 .get(RegisterActivityViewModel.class);
+
         mViewModel.errorMessage.observe(this, this::showToast);
+
         mViewModel.successMessage.observe(this, this::showToast);
+
         mViewModel.onSignupSuccess().observe(this, unused -> {
             if (mBinding.cbRememberAccount.isChecked()) {
                 final SharedPrefManager shared = SharedPrefManager.getInstance(this);
                 saveData(shared);
             }
         });
+
     }
 
     private void configTextView() {
@@ -91,9 +96,11 @@ public class RegisterActivity extends BaseActivity<RegisterActivityViewModel, Ac
         final String userName = mBinding.edtAccount.getText().toString();
         final String userPassword = mBinding.edtPassword.getText().toString();
         shared.saveBoolean(KeyPref.KEY_REMEMBER_ACCOUNT, true);
+
         if (!AppUtils.stringNullOrEmpty(userName)) {
             shared.saveString(KeyPref.KEY_USER_NAME, userName);
         }
+
         if (!AppUtils.stringNullOrEmpty(userPassword)) {
             shared.saveString(KeyPref.KEY_USER_PASSWORD, userPassword);
         }

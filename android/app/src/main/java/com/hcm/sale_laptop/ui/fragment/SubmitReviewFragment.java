@@ -50,7 +50,6 @@ public class SubmitReviewFragment extends BaseFragment<OrderReviewViewModel, Fra
 
         mViewModel = new OrderReviewViewModel();
 
-
         mViewModel.errorMessage.observe(this, this::showToast);
 
         mViewModel.isLoading.observe(this, isLoading -> {

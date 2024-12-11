@@ -70,6 +70,7 @@ public class ShippingAddressFragment extends BaseFragment<BaseViewModel<?>, Frag
     @Override
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
+
         setOnClickListener(mBinding.btnConfirm, view -> {
             final AddressAdapter adapter = (AddressAdapter) mBinding.rvAddress.getAdapter();
             if (adapter != null && Objects.requireNonNull(adapter).getItemCount() == 0) {

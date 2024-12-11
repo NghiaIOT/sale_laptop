@@ -43,9 +43,7 @@ public class AddNewAddressFragment extends BaseFragment<BaseViewModel<?>, Fragme
     @Override
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
-        setOnClickListener(mBinding.btnAddNewAddress, view -> {
-            actionAddNewAddress();
-        });
+        setOnClickListener(mBinding.btnAddNewAddress, view -> actionAddNewAddress());
     }
 
     private void actionAddNewAddress() {

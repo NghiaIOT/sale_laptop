@@ -46,7 +46,7 @@ public class AdminPurchaseManagerFragment extends BaseFragment<BaseViewModel<?>,
 
     }
 
-    private List<String> getDataTitles() {
+    private List<String> getTitles() {
         final List<String> titles = new ArrayList<>();
         titles.add("Xác nhận đơn hàng");
         titles.add("Yêu cầu hủy hàng");
@@ -81,7 +81,7 @@ public class AdminPurchaseManagerFragment extends BaseFragment<BaseViewModel<?>,
                 break;
         }
 
-        mBinding.txtHeader.setText(getDataTitles().get(tab));
+        mBinding.txtHeader.setText(getTitles().get(tab));
         mBinding.viewPager.setCurrentItem(tab);
     }
 

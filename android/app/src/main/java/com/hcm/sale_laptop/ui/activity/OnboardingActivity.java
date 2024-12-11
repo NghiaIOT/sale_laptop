@@ -67,6 +67,7 @@ public class OnboardingActivity extends BaseActivity<BaseViewModel<BaseRepositor
         });
 
         setOnClickListener(mBinding.txtSkip, view -> handlerNext());
+
         mBinding.vp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

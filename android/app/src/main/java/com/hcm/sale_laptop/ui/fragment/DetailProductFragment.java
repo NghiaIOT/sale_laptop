@@ -16,7 +16,6 @@ import com.hcm.sale_laptop.R;
 import com.hcm.sale_laptop.data.model.other.ProductModel;
 import com.hcm.sale_laptop.databinding.FragmentProductDetailBinding;
 import com.hcm.sale_laptop.ui.viewmodel.MainActivityViewModel;
-import com.hcm.sale_laptop.utils.AppLogger;
 import com.hcm.sale_laptop.utils.AppUtils;
 import com.hcm.sale_laptop.utils.CartManager;
 import com.hcm.sale_laptop.utils.Constants;
@@ -71,7 +70,6 @@ public class DetailProductFragment extends BaseFragment<BaseViewModel<?>, Fragme
         });
 
         setOnClickListener(mBinding.btnBuyNow, view -> {
-            AppLogger.d("productModel : ", productModel.getOrderNumber() + "- " + productModel.getTotalAmount());
             CartManager.addProduct(productModel.clone());
             addFragment(new ShoppingCartFragment(), R.id.fragment_container, true);
         });

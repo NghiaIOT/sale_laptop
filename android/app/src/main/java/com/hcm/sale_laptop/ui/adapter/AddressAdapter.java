@@ -13,7 +13,8 @@ import java.util.List;
 
 
 public class AddressAdapter extends BaseAdapter<AddressModel, ItemAddressBinding> {
-    List<AddressModel> itemList;
+
+    final List<AddressModel> itemList;
 
     public AddressAdapter(List<AddressModel> itemList, OnItemClick<AddressModel> listener) {
         super(itemList, listener);

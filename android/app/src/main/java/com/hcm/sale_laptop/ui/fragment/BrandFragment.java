@@ -69,6 +69,7 @@ public class BrandFragment extends BaseFragment<BrandViewModel, FragmentBrandBin
     @Override
     protected void setupAction() {
         setOnClickListener(mBinding.btnBackArrow, view -> onBack());
+
         setOnClickListener(mBinding.btnShoppingCart, view -> {
             final List<ProductModel> list = CartManager.getOrderList();
             if (AppUtils.checkListHasData(list)) {
@@ -82,8 +83,11 @@ public class BrandFragment extends BaseFragment<BrandViewModel, FragmentBrandBin
     @Override
     protected void setupData() {
         mViewModel = new BrandViewModel();
+
         mViewModel.getProductsByBrand(brandModel.getId());
+
         mViewModel.errorMessage.observe(this, this::showToast);
+
         mViewModel.isLoading.observe(this, isLoading -> {
             if (isLoading) {
                 showProgressBar();
@@ -102,10 +106,12 @@ public class BrandFragment extends BaseFragment<BrandViewModel, FragmentBrandBin
 
     private void showDialogWarning() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
         builder.setTitle("Lỗi");
         builder.setMessage("Giỏ hàng của bạn đang trống, hãy thêm ít nhất một sản phẩm vào giỏ hàng.");
         builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
         final AlertDialog dialog = builder.create();
+
         dialog.show();
     }
 
